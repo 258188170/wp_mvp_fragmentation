@@ -1,1 +1,2 @@
 # wp_mvp_fragmentation
+此demo是MVPArms框架和一个Activity多fragment框架(Fragmentation)结合
