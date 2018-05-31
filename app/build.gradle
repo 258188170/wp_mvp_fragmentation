@@ -52,7 +52,7 @@ dependencies {
         exclude module: 'support-annotations'
     }
 
-    compile 'me.jessyan:arms:2.2.3'
+    compile 'me.jessyan:arms:2.4.1'
 
     // view
     compile(rootProject.ext.dependencies["circleimageview"])
