@@ -1,0 +1,99 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        applicationId "com.example.wp.wp_mvp_fragmentation"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            //这两个变量是自定义的,自己也可以自定义字段,他会默认配置到BuildConfig中,app中可以根据这些字段执行一些操作
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "USE_CANARY", "true"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "USE_CANARY", "false"
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+//repositories { flatDir { dirs 'libs' } }
+
+dependencies {
+    compile fileTree(include: ['*.aar'], dir: 'libs')
+//    compile(name:'gsyVideoPlayer-java', ext:'aar')
+    //support
+    compile rootProject.ext.dependencies["appcompat-v7"]
+    compile(rootProject.ext.dependencies["cardview-v7"]) {
+        exclude module: 'support-annotations'
+    }
+
+    compile 'me.jessyan:arms:2.2.3'
+
+    // view
+    compile(rootProject.ext.dependencies["circleimageview"])
+    compile(rootProject.ext.dependencies["FlycoTabLayout_Lib"])
+    compile(rootProject.ext.dependencies["bga-banner"])
+    compile(rootProject.ext.dependencies["flowlayout"])
+
+    // tool
+    compile rootProject.ext.dependencies["arouter"]
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    provided rootProject.ext.dependencies["javax.annotation"]
+
+    compile rootProject.ext.dependencies["progressmanager"]
+    compile(rootProject.ext.dependencies["retrofit-url-manager"])
+    compile(rootProject.ext.dependencies["fragmentation"])
+    compile(rootProject.ext.dependencies["fragmentation-core"])
+    compile(rootProject.ext.dependencies["agentweb"])
+    compile(rootProject.ext.dependencies["brvah"])
+    compile(rootProject.ext.dependencies["FlycoSystemBar_Lib"])
+    compile(rootProject.ext.dependencies["glide-transformations"])
+    compile(rootProject.ext.dependencies["gpuimage-library"])
+
+    // gsyVideoPlayer
+    compile(rootProject.ext.dependencies["ijkplayer-java"])
+    compile(rootProject.ext.dependencies["ijkplayer-exo"])
+    compile(rootProject.ext.dependencies["transitionseverywhere"])
+    compile(rootProject.ext.dependencies["gsyvideoplayer-androidvideocache"])
+//    compile(rootProject.ext.dependencies["gsyVideoPlayer-java"]) // 源码对本项目报错，修改后改用aar导入，但必须同时导入以上四个（ijkplayer-java、ijkplayer-exo、transitionseverywhere、gsyvideoplayer-androidvideocache）
+    compile(rootProject.ext.dependencies["gsyVideoPlayer-armv5"])
+    compile(rootProject.ext.dependencies["gsyVideoPlayer-armv7a"])
+    compile(rootProject.ext.dependencies["gsyVideoPlayer-arm64"])
+    compile(rootProject.ext.dependencies["gsyVideoPlayer-x64"])
+    compile(rootProject.ext.dependencies["gsyVideoPlayer-x86"])
+    //更多配置版so，增加了concat,rtsp,mpeg，crypto
+    //compile(rootProject.ext.dependencies["gsyVideoPlayer-ex_so"])
+
+    // test
+    testCompile rootProject.ext.dependencies["junit"]
+    debugCompile rootProject.ext.dependencies["canary-debug"]
+    releaseCompile rootProject.ext.dependencies["canary-release"]
+    testCompile rootProject.ext.dependencies["canary-release"]
+}
