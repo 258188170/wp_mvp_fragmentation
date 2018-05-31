@@ -4,16 +4,17 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
-import com.example.wp.wp_mvp_fragmentation.BuildConfig;
-import com.example.wp.wp_mvp_fragmentation.app.config.MyGlobalHttpHandler;
-import com.example.wp.wp_mvp_fragmentation.app.config.MyGsonConfiguration;
-import com.example.wp.wp_mvp_fragmentation.app.config.MyResponseErrorListener;
-import com.example.wp.wp_mvp_fragmentation.app.config.MyRetrofitConfiguration;
-import com.example.wp.wp_mvp_fragmentation.app.config.MyRxCacheConfiguration;
+import com.example.wp.wp_mvp_fragmentation.app.config.applyOptions.MyGlobalHttpHandler;
+import com.example.wp.wp_mvp_fragmentation.app.config.applyOptions.MyGsonConfiguration;
+import com.example.wp.wp_mvp_fragmentation.app.config.applyOptions.MyOkhttpConfiguration;
+import com.example.wp.wp_mvp_fragmentation.app.config.applyOptions.MyResponseErrorListener;
+import com.example.wp.wp_mvp_fragmentation.app.config.applyOptions.MyRetrofitConfiguration;
+import com.example.wp.wp_mvp_fragmentation.app.config.applyOptions.MyRxCacheConfiguration;
 import com.example.wp.wp_mvp_fragmentation.app.config.applyOptions.intercept.UserAgentInterceptor;
+import com.example.wp.wp_mvp_fragmentation.app.config.lifecyclesOptioins.MyActivityLifecycle;
+import com.example.wp.wp_mvp_fragmentation.app.config.lifecyclesOptioins.MyAppLifecycles;
 import com.jess.arms.base.delegate.AppLifecycles;
 import com.jess.arms.di.module.GlobalConfigModule;
-import com.jess.arms.http.RequestInterceptor;
 import com.jess.arms.integration.ConfigModule;
 import com.jess.arms.utils.DataHelper;
 
@@ -27,9 +28,6 @@ public class GlobalConfiguration implements ConfigModule {
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
         //使用builder可以为框架配置一些配置信息
-        if (!BuildConfig.LOG_DEBUG) { //Release 时,让框架不再打印 Http 请求和响应的信息
-            builder.printHttpLogLevel(RequestInterceptor.Level.NONE);
-        }
         builder
 //                .baseurl(Api.BASE_URL)
                 .retrofitConfiguration(new MyRetrofitConfiguration())
@@ -48,11 +46,13 @@ public class GlobalConfiguration implements ConfigModule {
     @Override
     public void injectAppLifecycle(Context context, List<AppLifecycles> lifecycles) {
 
+        lifecycles.add(new MyAppLifecycles());
     }
 
     @Override
     public void injectActivityLifecycle(Context context, List<Application.ActivityLifecycleCallbacks> lifecycles) {
 
+        lifecycles.add(new MyActivityLifecycle());
     }
 
     @Override

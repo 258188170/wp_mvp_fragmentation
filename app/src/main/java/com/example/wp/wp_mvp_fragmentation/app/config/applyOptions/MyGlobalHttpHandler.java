@@ -1,4 +1,4 @@
-package com.example.wp.wp_mvp_fragmentation.app.config;
+package com.example.wp.wp_mvp_fragmentation.app.config.applyOptions;
 
 import com.jess.arms.http.GlobalHttpHandler;
 

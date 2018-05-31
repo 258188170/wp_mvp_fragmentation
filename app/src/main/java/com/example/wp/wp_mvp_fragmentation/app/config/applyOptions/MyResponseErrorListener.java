@@ -1,4 +1,4 @@
-package com.example.wp.wp_mvp_fragmentation.app.config;
+package com.example.wp.wp_mvp_fragmentation.app.config.applyOptions;
 
 import android.content.Context;
 import android.net.ParseException;
@@ -23,6 +23,7 @@ import timber.log.Timber;
  */
 public class MyResponseErrorListener implements ResponseErrorListener {
     private final String TAG = this.getClass().getName();
+
     @Override
     public void handleResponseError(Context context, Throwable t) {
         Timber.tag(TAG).w(t.getMessage());
