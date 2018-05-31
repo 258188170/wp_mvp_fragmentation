@@ -1,4 +1,4 @@
-package com.example.wp.wp_mvp_fragmentation.app;
+package com.example.wp.wp_mvp_fragmentation.app.data.api;
 
 /**
  * Created by wangpeng on 2018/5/31.

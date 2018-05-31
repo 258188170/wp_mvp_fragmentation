@@ -1,6 +1,6 @@
 package com.example.wp.wp_mvp_fragmentation.app.config.applyOptions.intercept;
 
-import com.example.wp.wp_mvp_fragmentation.app.Api;
+import com.example.wp.wp_mvp_fragmentation.app.data.api.Api;
 
 import java.io.IOException;
 

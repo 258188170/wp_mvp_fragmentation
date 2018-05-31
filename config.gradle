@@ -19,7 +19,7 @@ ext {
             rxlifecycle2SdkVersion  : "2.1.0",
             espressoSdkVersion      : "2.2.2",
             canarySdkVersion        : "1.5.1",
-            fragmentationVersion    : "1.1.6",
+            fragmentationVersion    : "1.3.4",
             ijkplayerVersion        : "0.8.4",
             gsyVideoVersion         : "2.1.1"
     ]

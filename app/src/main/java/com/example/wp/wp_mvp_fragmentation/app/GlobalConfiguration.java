@@ -32,7 +32,7 @@ public class GlobalConfiguration implements ConfigModule {
 //                .baseurl(Api.BASE_URL)
                 .retrofitConfiguration(new MyRetrofitConfiguration())
 //                     使用统一UserAgent
-                .addInterceptor(new UserAgentInterceptor())
+//                .addInterceptor(new UserAgentInterceptor())
                 .rxCacheConfiguration(new MyRxCacheConfiguration())
                 .globalHttpHandler(new MyGlobalHttpHandler())
                 .responseErrorListener(new MyResponseErrorListener())
