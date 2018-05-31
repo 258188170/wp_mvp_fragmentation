@@ -12,11 +12,11 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 import javax.inject.Inject;
 
-import com.example.wp.wp_mvp_fragmentation.mvp.contract.MainContract;
+import com.example.wp.wp_mvp_fragmentation.mvp.contract.TestContract;
 
 
 @ActivityScope
-public class MainPresenter extends BasePresenter<MainContract.Model, MainContract.View> {
+public class TestPresenter extends BasePresenter<TestContract.Model, TestContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -27,7 +27,7 @@ public class MainPresenter extends BasePresenter<MainContract.Model, MainContrac
     AppManager mAppManager;
 
     @Inject
-    public MainPresenter(MainContract.Model model, MainContract.View rootView) {
+    public TestPresenter(TestContract.Model model, TestContract.View rootView) {
         super(model, rootView);
     }
 
@@ -40,7 +40,7 @@ public class MainPresenter extends BasePresenter<MainContract.Model, MainContrac
         this.mApplication = null;
     }
 
-    public void stse() {
-        Log.i(TAG, "stse: ----------");
+    public void ster() {
+        Log.i(TAG, "ster: --------------");
     }
 }

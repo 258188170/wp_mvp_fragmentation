@@ -4,19 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatTextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportActivity;
-import com.jess.arms.base.BaseActivity;
-import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.utils.ArmsUtils;
-
+import com.example.wp.wp_mvp_fragmentation.app.data.api.Router;
 import com.example.wp.wp_mvp_fragmentation.di.component.DaggerSplashComponent;
 import com.example.wp.wp_mvp_fragmentation.di.module.SplashModule;
 import com.example.wp.wp_mvp_fragmentation.mvp.contract.SplashContract;
 import com.example.wp.wp_mvp_fragmentation.mvp.presenter.SplashPresenter;
-
-import com.example.wp.wp_mvp_fragmentation.R;
-
+import com.jess.arms.base.BaseActivity;
+import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,7 +25,8 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
 public class SplashActivity extends MySupportActivity<SplashPresenter> implements SplashContract.View {
-
+    @BindView(R.id.tv_launcher_timer)
+    AppCompatTextView mTextView;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -39,7 +40,9 @@ public class SplashActivity extends MySupportActivity<SplashPresenter> implement
 
     @OnClick(R.id.tv_launcher_timer)
     void toMain() {
-        mPresenter.toStart();
+       ARouter.getInstance().build(Router.APP_MAIN).navigation();
+       killMyself();
+
     }
 
     @Override
@@ -49,6 +52,7 @@ public class SplashActivity extends MySupportActivity<SplashPresenter> implement
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        mPresenter.toStart();
 
     }
 
@@ -81,7 +85,18 @@ public class SplashActivity extends MySupportActivity<SplashPresenter> implement
 
 
     @Override
-    public void clickable() {
+    public void showTimer(int time) {
+        if (time > 0) {
+            mTextView.setEnabled(false);
+        }else {
+            mTextView.setEnabled(false);
+            mTextView.setText(time+"s");
+        }
+
+    }
+
+    @Override
+    public void post(Runnable runnable) {
 
     }
 }

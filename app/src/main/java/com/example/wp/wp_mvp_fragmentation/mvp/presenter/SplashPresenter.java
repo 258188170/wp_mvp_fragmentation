@@ -1,27 +1,23 @@
 package com.example.wp.wp_mvp_fragmentation.mvp.presenter;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.example.wp.wp_mvp_fragmentation.mvp.ui.activity.MainActivity;
-import com.jess.arms.integration.AppManager;
+import com.example.wp.wp_mvp_fragmentation.app.data.api.Router;
+import com.example.wp.wp_mvp_fragmentation.mvp.contract.SplashContract;
 import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.RxLifecycleUtils;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
-
-import javax.inject.Inject;
-
-import com.example.wp.wp_mvp_fragmentation.mvp.contract.SplashContract;
-import com.jess.arms.utils.ArmsUtils;
-import com.jess.arms.utils.RxLifecycleUtils;
-
-import java.util.concurrent.TimeUnit;
 
 
 @ActivityScope
@@ -34,6 +30,8 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
     ImageLoader mImageLoader;
     @Inject
     AppManager mAppManager;
+
+    private int count = 5;
 
     @Inject
     public SplashPresenter(SplashContract.Model model, SplashContract.View rootView) {
@@ -50,12 +48,17 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
     }
 
     public void toStart() {
-        Observable.timer(2000, TimeUnit.MILLISECONDS)
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+                .doOnSubscribe(disposable -> mRootView.showTimer(count))
+                .map(aLong -> count - aLong)
+                .take(count + 1)
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(aLong -> {
-                    ARouter.getInstance().build("/app/main").navigation();
-                    ArmsUtils.startActivity(MainActivity.class);
+                    if (count==0){
+                        ARouter.getInstance().build(Router.APP_MAIN).navigation();
+                    }
                 });
+
     }
 }

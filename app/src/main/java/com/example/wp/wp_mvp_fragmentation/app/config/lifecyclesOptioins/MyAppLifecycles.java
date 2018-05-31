@@ -21,14 +21,8 @@ import timber.log.Timber;
  * Created by wangpeng on 2018/5/31.
  */
 public class MyAppLifecycles implements AppLifecycles {
-
     // LeakCanary观察器
     private RefWatcher mRefWatcher;
-
-    @Override
-    public void attachBaseContext(Context base) {
-        //这里比 onCreate 先执行,常用于 MultiDex 初始化,插件化框架的初始化
-    }
 
     @Override
     public void onCreate(Application application) {
@@ -36,6 +30,16 @@ public class MyAppLifecycles implements AppLifecycles {
         initLeakCanary(application);
         initFragmentation();
         initARouter(application);
+    }
+
+    @Override
+    public void attachBaseContext(Context base) {
+
+    }
+
+    @Override
+    public void onTerminate(Application application) {
+        mRefWatcher = null;
     }
 
     private void initARouter(Application application) {
@@ -66,6 +70,7 @@ public class MyAppLifecycles implements AppLifecycles {
                 .install();
     }
 
+
     private void initLeakCanary(Application application) {
         //leakCanary内存泄露检查
         mRefWatcher = BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED;
@@ -84,10 +89,5 @@ public class MyAppLifecycles implements AppLifecycles {
 
     public void setRefWatcher(RefWatcher refWatcher) {
         mRefWatcher = refWatcher;
-    }
-
-    @Override
-    public void onTerminate(Application application) {
-
     }
 }

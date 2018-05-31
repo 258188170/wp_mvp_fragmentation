@@ -25,38 +25,39 @@ import java.util.List;
  * Created by wangpeng on 2018/5/31.
  */
 public class GlobalConfiguration implements ConfigModule {
+
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
         //使用builder可以为框架配置一些配置信息
         builder
-//                .baseurl(Api.BASE_URL)
+                //.baseurl(Api.APP_DOMAIN)
                 .retrofitConfiguration(new MyRetrofitConfiguration())
-//                     使用统一UserAgent
+                // 使用统一UserAgent
 //                .addInterceptor(new UserAgentInterceptor())
                 .rxCacheConfiguration(new MyRxCacheConfiguration())
                 .globalHttpHandler(new MyGlobalHttpHandler())
                 .responseErrorListener(new MyResponseErrorListener())
-                //缓存
                 .cacheFile(new File(DataHelper.getCacheFile(context), "rxCache"))
-                .gsonConfiguration(new MyGsonConfiguration())
-                .okhttpConfiguration(new MyOkhttpConfiguration());
-
+                .gsonConfiguration(new MyGsonConfiguration());
     }
 
     @Override
     public void injectAppLifecycle(Context context, List<AppLifecycles> lifecycles) {
-
+        //向Application的生命周期中注入一些自定义逻辑
         lifecycles.add(new MyAppLifecycles());
     }
 
+
     @Override
     public void injectActivityLifecycle(Context context, List<Application.ActivityLifecycleCallbacks> lifecycles) {
-
+        //向Activity的生命周期中注入一些自定义逻辑
         lifecycles.add(new MyActivityLifecycle());
     }
 
+
     @Override
     public void injectFragmentLifecycle(Context context, List<FragmentManager.FragmentLifecycleCallbacks> lifecycles) {
-
+        //向Fragment的生命周期中注入一些自定义逻辑
     }
+
 }

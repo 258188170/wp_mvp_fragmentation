@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mvp.ui.activity.MainActivity"
+            android:name=".mvp.ui.activity.TestActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,6 +39,7 @@
             android:name="com.example.wp.wp_mvp_fragmentation.app.GlobalConfiguration"
             android:value="ConfigModule" />
 
+        <activity android:name=".mvp.ui.activity.MainActivity" />
         <activity android:name=".mvp.ui.activity.SplashActivity"></activity>
     </application>
 
