@@ -80,18 +80,20 @@ public class SplashActivity extends MySupportActivity<SplashPresenter> implement
 
     @Override
     public void killMyself() {
+        ARouter.getInstance().build(Router.APP_MAIN).navigation();
         finish();
     }
 
 
     @Override
-    public void showTimer(int time) {
-        if (time > 0) {
-            mTextView.setEnabled(false);
-        }else {
-            mTextView.setEnabled(false);
-            mTextView.setText(time+"s");
-        }
+    public void showTimer(Long time) {
+        mTextView.setText(time+"s");
+
+    }
+
+    //根据需求待实现
+    @Override
+    public void isClickable(boolean checked) {
 
     }
 

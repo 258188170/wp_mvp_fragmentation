@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mvp.ui.activity.TestActivity"
+            android:name=".mvp.ui.activity.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
             android:value="ConfigModule" />
 
         <activity android:name=".mvp.ui.activity.MainActivity" />
-        <activity android:name=".mvp.ui.activity.SplashActivity"></activity>
+        <activity android:name=".mvp.ui.activity.TestActivity"></activity>
     </application>
 
 </manifest>
