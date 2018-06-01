@@ -58,6 +58,7 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(aLong -> {
+                    //倒计时时间
                     mRootView.showTimer(aLong);
                     if (aLong == 0L) mRootView.killMyself();
                 });
