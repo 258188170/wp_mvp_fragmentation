@@ -1,3 +1,74 @@
 <resources>
-    <string name="app_name">我的Demo</string>
+    <string name="app_name">mine</string>
+
+    <!--MainActivity:侧边栏-->
+    <string name="click_avtor_login">点击头像登录</string>
+    <string name="nav_home">首页</string>
+    <string name="nav_history">历史记录</string>
+    <string name="nav_offline_cache">离线缓存</string>
+    <string name="nav_my_collect">我的收藏</string>
+    <string name="nav_my_follow">我的关注</string>
+    <string name="nav_look_later">稍后再看</string>
+    <string name="nav_live_center">直播中心</string>
+    <string name="nav_my_vip">我的大会员</string>
+    <string name="nav_free_fow">免流量服务</string>
+    <string name="nav_vip_order">会员购订单</string>
+    <string name="setting">设置</string>
+    <string name="theme">主题</string>
+    <string name="at_night">夜间</string>
+
+    <!--NavHomeFragment:底部导航栏-->
+    <string name="main_home">首页</string>
+    <string name="main_category">分区</string>
+    <string name="main_dynamic">动态</string>
+    <string name="main_communicate">消息</string>
+
+    <!--MainHomeFragment:toolbar-->
+    <string name="main_active">活动</string>
+    <string name="main_game">游戏</string>
+    <string name="main_download">下载</string>
+    <string name="main_search">搜索</string>
+    <string name="main_edit">编辑</string>
+
+    <!--MainHomeFragment:tabLayout-->
+    <string-array name="tab_titles_main_home">
+        <item>直播</item>
+        <item>推荐</item>
+        <item>追番</item>
+        <item>专栏</item>
+    </string-array>
+
+    <!--LiveFragment-->
+    <string name="live_home_follow_anchor">关注</string>
+    <string name="live_home_entertainment">娱乐</string>
+    <string name="live_home_game">游戏</string>
+    <string name="live_home_mobile_game">手游</string>
+    <string name="live_home_painting">绘画</string>
+    <string name="live_home_all_live">全部直播</string>
+
+    <!--RecommendFragment-->
+    <string name="recommend_home_comprehensive">综合</string>
+    <string name="recommend_home_rank_list">排行榜</string>
+    <string name="recommend_home_tag">标签</string>
+    <string name="recommend_home_update_to_last_index">更新至第$1%d话</string>
+
+    <!--VideoDetailActivity-->
+    <string name="v_detail_play_immediately">立刻播放</string>
+    <string name="v_detail_summary">简介</string>
+    <string name="v_detail_evaluate">评论(%1$d)</string>
+
+
+    <!--视频播放-->
+    <string name="tips_not_wifi">您当前正在使用移动网络，继续播放将消耗流量</string>
+    <string name="tips_not_wifi_confirm">继续播放</string>
+    <string name="no_net">当前找不到网络</string>
+    <string name="tips_not_wifi_cancel">停止播放</string>
+    <string name="no_url">播放地址无效</string>
+
+    <!--app-->
+    <string name="login">登录</string>
+    <string name="tip_no_login_dynamic">你还没有登录哦~\n赶快登录打开新世界的大门</string>
+    <string name="tip_no_login_communicate">未登录无法查看消息哦\n点击登录，与小伙伴愉快交流吧</string>
+    <string name="double_click_to_exit">再按一次退出</string>
+    <string name="copy_right">Copyright © 2009-2017 bilibili</string>
 </resources>

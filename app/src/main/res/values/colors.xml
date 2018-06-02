@@ -1,7 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="timer">#64ffffff</color>
+    <color name="colorPrimary">#fb7299</color>
+    <color name="colorPrimaryDark">#b85671</color>
+    <color name="colorAccent">@android:color/black</color>
+
+    <color name="main_bg">#FFFFFF</color>
+    <color name="fragment_bg">#F4F4F4</color>
+
+    <!--MainActivity:侧边栏-->
+    <color name="nav_header_text">#FFFFFF</color>
+    <color name="nav_menu_bg">#FFFFFF</color>
+    <color name="nav_bottom_line">#DDDDDD</color>
+    <color name="nav_bottom_text">#464646</color>
+
+    <!--NavHomeFragment:底部导航栏-->
+    <color name="bottom_bar_under_line_nav_home">#DDDDDD</color>
+    <color name="bottom_bar_text_select_nav_home">#FA749A</color>
+    <color name="bottom_bar_text_unselect_nav_home">#87888A</color>
+
+    <!--MainHomeFragment/MainCategoryFragment/MainDynamivFragment/MainCommunicateFragment:顶部导航栏-->
+    <color name="toolbar_title_fragment">#FFFFFF</color>
+    <color name="tab_indicator_fragment">#FFFFFF</color>
+    <color name="tab_text_fragment">#FFFFFF</color>
+    <color name="tab_text_selected_fragment">#fb7299</color>
+    <color name="tip_no_login_dynamic">#404040</color>
+    <color name="btn_no_login_text_dynamic">#FFFFFF</color>
+    <color name="btn_no_login_bg_dynamic">#FB7299</color>
+    <color name="btn_no_login_text_communicate">#BBBBBB</color>
+
+    <!--LiveFragment-->
+    <color name="header_bg_live">#FFFFFF</color>
+    <color name="header_category_text">#373737</color>
+    <color name="et_search_bg_live">#E7E7E7</color>
+    <color name="et_search_hint_live">#999999</color>
+    <color name="title_text_live">#404040</color>
+    <color name="title_count_text_live">#fb7299</color>
+    <color name="item_owner_name_text_live">#FFFFFF</color>
+    <color name="item_title_text_live">#333333</color>
+    <color name="item_item_online_text_live">#AAAAAA</color>
+    <color name="banner_title_text_live">#333333</color>
+    <color name="bottom_text_live">#fb7299</color>
+    <color name="footer_all_live_btn_bg_live">#FAFAFA</color>
+    <color name="footer_all_live_btn_stroke_live">#BFBFBF</color>
+
+    <!--RecommendFragment-->
+    <color name="item_title_text_recommend">#333333</color>
+    <color name="item_item_dest_text_recommend">#AAAAAA</color>
+    <color name="item_streamer_badge_text_recommend">#fb7299</color>
+    <color name="item_item_yellow_tag_text_recommend">#FB9E60</color>
+    <color name="item_item_gray_tag_text_recommend">#CCCCCC</color>
+    <color name="item_item_av_info_text_recommend">#FFFFFF</color>
+    <color name="item_item_ad_info_text_recommend">#FFFFFF</color>
+
+    <!--CommendFragment-->
+    <color name="top_title_rank_tag_recommend">#F4F4F4</color>
+    <color name="top_left_text_recommend">#FB7299</color>
+    <color name="top_right_text_recommend">#999999</color>
+
+    <!--VideoDetailActivity-->
+    <color name="reply_bottom_bg_video_detail">#FAFAFA</color>
+    <color name="reply_replies_bg_video_detail">#F4F4F4</color>
+    <color name="reply_main_bg_video_detail">#FFFFFF</color>
+    <color name="video_player_start_tip_bg">#BABABA</color>
+
+    <!--播放器-->
+    <color name="video_controller_widget_bg">#99000000</color>
+    <color name="video_controller_widget_text">#ffffff</color>
+
+    <!--文字颜色-->
+    <color name="text_title">#333333</color>
+    <color name="text_desc">#999999</color>
+    <color name="text_statement">#8D8D8D</color>
+    <color name="white">#fff</color>
 </resources>
