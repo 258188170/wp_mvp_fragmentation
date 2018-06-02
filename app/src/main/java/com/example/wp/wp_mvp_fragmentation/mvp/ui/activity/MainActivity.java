@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -47,7 +48,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
     LinearLayoutCompat mLlRoot;
     @BindView(R.id.main_drawer)
     DrawerLayout mDrawer;
-    @BindView(R.id.nav)
+    @BindView(R.id.nav_view)
     NavigationView mNav;
 
     private long mPreTime = 0;
@@ -77,7 +78,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
     private void initStatusBar() {
         SystemBarHelper.tintStatusBarForDrawer(this, mDrawer, ArmsUtils.getColor(this, R.color.colorPrimary));
         SystemBarHelper.setPadding(this, mNav.getHeaderView(0));
-        SystemBarHelper.setPadding(this, mDrawer);
+        SystemBarHelper.setPadding(this, mLlRoot);
     }
 
     private void initFragmentation() {
