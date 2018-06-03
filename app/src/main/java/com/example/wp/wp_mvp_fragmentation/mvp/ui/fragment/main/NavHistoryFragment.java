@@ -1,4 +1,4 @@
-package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment;
+package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,8 +11,13 @@ import com.example.wp.wp_mvp_fragmentation.app.base.MySupportFragment;
 import com.jess.arms.di.component.AppComponent;
 
 public class NavHistoryFragment extends MySupportFragment {
-    public static NavHistoryFragment newInstance(){
-        return new NavHistoryFragment();
+    public static NavHistoryFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        NavHistoryFragment fragment = new NavHistoryFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {

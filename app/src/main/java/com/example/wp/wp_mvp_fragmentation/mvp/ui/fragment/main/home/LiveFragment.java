@@ -1,4 +1,4 @@
-package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment;
+package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.home;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,15 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportFragment;
 import com.jess.arms.di.component.AppComponent;
 
-public class NavHomeFragment extends MySupportFragment {
+/**
+ * Created by WangPeng on 2018/6/3.
+ * 直播
+ */
+public class LiveFragment extends MySupportFragment {
+    public static LiveFragment newInstance() {
 
-    public static NavHomeFragment newInstance() {
-        return new NavHomeFragment();
+        Bundle args = new Bundle();
+
+        LiveFragment fragment = new LiveFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
+
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
 
@@ -23,8 +31,7 @@ public class NavHomeFragment extends MySupportFragment {
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_nav,container,false);
-        return view;
+        return null;
     }
 
     @Override

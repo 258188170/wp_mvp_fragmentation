@@ -8,28 +8,24 @@ import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportActivity;
-import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.NavHistoryFragment;
-import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.NavHomeFragment;
-import com.flyco.systembar.SystemBarHelper;
-import com.jess.arms.base.BaseActivity;
-import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.utils.ArmsUtils;
-
+import com.example.wp.wp_mvp_fragmentation.app.tag.MainTag;
 import com.example.wp.wp_mvp_fragmentation.di.component.DaggerMainComponent;
 import com.example.wp.wp_mvp_fragmentation.di.module.MainModule;
 import com.example.wp.wp_mvp_fragmentation.mvp.contract.MainContract;
 import com.example.wp.wp_mvp_fragmentation.mvp.presenter.MainPresenter;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.NavHistoryFragment;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.NavHomeFragment;
+import com.flyco.systembar.SystemBarHelper;
+import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.utils.ArmsUtils;
 
-import com.example.wp.wp_mvp_fragmentation.R;
-
+import org.simple.eventbus.Subscriber;
 
 import java.util.TimerTask;
 
@@ -110,7 +106,6 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
 
     public void closeDrawer() {
         mDrawer.closeDrawer(GravityCompat.START);
-        mDrawer.closeDrawer(GravityCompat.START);
     }
 
     @Override
@@ -186,7 +181,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
                 pop();
             } else {
                 //放置后台
-                moveTaskToBack(false);
+//                moveTaskToBack(false);
 
                 //2秒点击退出应用
                 long nowTime = System.currentTimeMillis();
@@ -201,4 +196,11 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
         }
 
     }
+    @Subscriber(tag = "openDrawer")
+    public void openDrawer(MainTag mainTag) {
+        if (!mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.openDrawer(GravityCompat.START);
+        }
+    }
+
 }
