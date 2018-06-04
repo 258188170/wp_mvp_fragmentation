@@ -1,4 +1,4 @@
-package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main;
+package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.nav;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

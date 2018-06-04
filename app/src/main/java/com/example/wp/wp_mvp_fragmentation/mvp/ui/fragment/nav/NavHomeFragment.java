@@ -1,4 +1,4 @@
-package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main;
+package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.nav;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,8 +10,13 @@ import android.view.ViewGroup;
 import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportFragment;
 import com.example.wp.wp_mvp_fragmentation.app.data.entry.tab.TabEntity;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.MainCategoryFragment;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.MainCommunicateFragment;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.MainDynamicFragment;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.MainHomeFragment;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
@@ -29,7 +34,10 @@ public class NavHomeFragment extends MySupportFragment {
     CommonTabLayout mBottomBar;
 
     public static NavHomeFragment newInstance() {
-        return new NavHomeFragment();
+        Bundle args = new Bundle();
+        NavHomeFragment fragment = new NavHomeFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -51,13 +59,12 @@ public class NavHomeFragment extends MySupportFragment {
     }
 
     private void initFragmentation() {
-        final ISupportFragment fragment = findChildFragment(MainHomeFragment.class);
-        if (fragment == null) {
+        ISupportFragment homeFragment = findChildFragment(MainHomeFragment.class);
+        if (homeFragment == null) {
             mFragments[0] = MainHomeFragment.newInstance();
             mFragments[1] = MainCategoryFragment.newInstance();
             mFragments[2] = MainDynamicFragment.newInstance();
             mFragments[3] = MainCommunicateFragment.newInstance();
-            //加载多个同级根Fragment,类似Wechat, QQ主页的场景
             loadMultipleRootFragment(R.id.fl_content, 0, mFragments);
         } else {
             mFragments[0] = findChildFragment(MainHomeFragment.class);
@@ -68,12 +75,24 @@ public class NavHomeFragment extends MySupportFragment {
     }
 
     private void initBottomBar() {
-        final ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+        ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
         mTabEntities.add(new TabEntity(ArmsUtils.getString(_mActivity, R.string.main_home), R.mipmap.ic_home_selected, R.mipmap.ic_home_unselected));
         mTabEntities.add(new TabEntity(ArmsUtils.getString(_mActivity, R.string.main_category), R.mipmap.ic_category_selected, R.mipmap.ic_category_unselected));
         mTabEntities.add(new TabEntity(ArmsUtils.getString(_mActivity, R.string.main_dynamic), R.mipmap.ic_dynamic_selected, R.mipmap.ic_dynamic_unselected));
         mTabEntities.add(new TabEntity(ArmsUtils.getString(_mActivity, R.string.main_communicate), R.mipmap.ic_communicate_selected, R.mipmap.ic_communicate_unselected));
         mBottomBar.setTabData(mTabEntities);
+        mBottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+//                Timber.e("position = " + position);
+                showHideFragment(mFragments[position]);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
     }
 
     @Override

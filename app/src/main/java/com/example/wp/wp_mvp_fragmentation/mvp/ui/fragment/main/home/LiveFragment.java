@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportFragment;
 import com.jess.arms.di.component.AppComponent;
 
@@ -15,6 +16,7 @@ import com.jess.arms.di.component.AppComponent;
  * 直播
  */
 public class LiveFragment extends MySupportFragment {
+    private View mRootView;
     public static LiveFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -31,7 +33,9 @@ public class LiveFragment extends MySupportFragment {
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return null;
+        if (mRootView == null)
+            mRootView = inflater.inflate(R.layout.fragment_live_main_home, container, false);
+        return mRootView;
     }
 
     @Override

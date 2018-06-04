@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.home.ColumnFragment;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by WangPeng on 2018/6/3.
  */
-public class MainHomeFragmentAdapter extends FragmentStatePagerAdapter {
+public class MainHomeFragmentAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTabTitles;

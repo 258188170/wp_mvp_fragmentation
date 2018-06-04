@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_drawer"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fitsSystemWindows="true"
-    tools:context=".mvp.ui.activity.MainActivity">
+    android:background="#fff"
+    android:fitsSystemWindows="true">
 
-    <include layout="@layout/include_main_content" />
+    <include layout="@layout/include_main_content"/>
 
-    <include layout="@layout/include_main_nav" />
+    <include layout="@layout/include_main_nav"/>
 
 </android.support.v4.widget.DrawerLayout>

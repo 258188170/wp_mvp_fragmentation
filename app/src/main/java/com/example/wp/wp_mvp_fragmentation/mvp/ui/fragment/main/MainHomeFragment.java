@@ -34,16 +34,13 @@ public class MainHomeFragment extends MySupportFragment {
     SlidingTabLayout mTabLayout;
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
-
     @OnClick(R.id.ll_toolbar)
     void openDrawer() {
         EventBus.getDefault().post(new MainTag(), "openDrawer");
     }
 
     public static MainHomeFragment newInstance() {
-
         Bundle args = new Bundle();
-
         MainHomeFragment fragment = new MainHomeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -104,10 +101,10 @@ public class MainHomeFragment extends MySupportFragment {
 
     private void initTabLayoutAndViewPager() {
         mViewPager.setAdapter(new MainHomeFragmentAdapter(getChildFragmentManager(),_mActivity));
-
         //设置推荐为默认加载
         mViewPager.setCurrentItem(1);
         mTabLayout.setViewPager(mViewPager);
+
     }
 
     @Override

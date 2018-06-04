@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fragment_bg"
-    android:orientation="vertical">
+    android:background="@color/fragment_bg">
 
-    <!--折叠悬浮效果-->
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,28 +27,28 @@
                     android:id="@+id/ll_toolbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/toolbar_back_ico_size"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_drawer_home" />
+                        android:layout_width="20dp"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/ic_drawer_home"/>
 
                     <ImageView
                         android:layout_width="@dimen/toolbar_avatar_size"
                         android:layout_height="@dimen/toolbar_avatar_size"
-                        android:layout_marginLeft="@dimen/toolbar_avatar_margin_left"
-                        android:layout_marginRight="@dimen/toolbar_avatar_margin_right"
-                        android:src="@mipmap/ico_user_default" />
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:src="@mipmap/ico_user_default"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1" />
+                        android:maxLines="1"/>
 
                 </LinearLayout>
+
             </com.jess.arms.widget.autolayout.AutoToolbar>
 
             <com.example.wp.wp_mvp_fragmentation.mvp.ui.widget.AutoSlidingTabLayout
@@ -58,17 +57,15 @@
                 android:layout_height="82px"
                 app:tl_indicator_margin_left="25px"
                 app:tl_indicator_margin_right="25px"
-                app:tl_tab_space_equal="true" />
-
-
+                app:tl_tab_space_equal="true"/>
         </com.jess.arms.widget.autolayout.AutoAppBarLayout>
-
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
+
 </com.zhy.autolayout.AutoFrameLayout>

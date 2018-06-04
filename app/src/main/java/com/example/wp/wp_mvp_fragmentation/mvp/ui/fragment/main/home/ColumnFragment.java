@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportFragment;
 import com.jess.arms.di.component.AppComponent;
 
@@ -31,7 +32,8 @@ public class ColumnFragment extends MySupportFragment {
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return null;
+        View view = inflater.inflate(R.layout.fragment_column_main_home, container, false);
+        return view;
     }
 
     @Override

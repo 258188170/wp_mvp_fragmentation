@@ -8,10 +8,11 @@ import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportActivity;
 import com.example.wp.wp_mvp_fragmentation.app.tag.MainTag;
@@ -19,8 +20,8 @@ import com.example.wp.wp_mvp_fragmentation.di.component.DaggerMainComponent;
 import com.example.wp.wp_mvp_fragmentation.di.module.MainModule;
 import com.example.wp.wp_mvp_fragmentation.mvp.contract.MainContract;
 import com.example.wp.wp_mvp_fragmentation.mvp.presenter.MainPresenter;
-import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.NavHistoryFragment;
-import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.NavHomeFragment;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.nav.NavHistoryFragment;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.nav.NavHomeFragment;
 import com.flyco.systembar.SystemBarHelper;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
@@ -30,6 +31,7 @@ import org.simple.eventbus.Subscriber;
 import java.util.TimerTask;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -40,14 +42,29 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
  */
 @Route(path = "/app/main")
 public class MainActivity extends MySupportActivity<MainPresenter> implements MainContract.View, NavigationView.OnNavigationItemSelectedListener {
-    @BindView(R.id.main_root)
-    LinearLayoutCompat mLlRoot;
-    @BindView(R.id.main_drawer)
+    @BindView(R.id.ll_root)
+    LinearLayout mLlRoot;
+    @BindView(R.id.drawer)
     DrawerLayout mDrawer;
-    @BindView(R.id.nav_view)
+    @BindView(R.id.nav)
     NavigationView mNav;
 
     private long mPreTime = 0;
+
+    @OnClick(R.id.rl_setting)
+    void toSetting() {
+        ARouter.getInstance().build("/app/setting").navigation();
+    }
+
+    @OnClick(R.id.rl_theme)
+    void toTheme() {
+        ARouter.getInstance().build("/app/theme").navigation();
+    }
+
+    @OnClick(R.id.rl_change_skin)
+    void changeSkin() {
+        // TODO: 2017/10/18 切换夜间/白天皮肤
+    }
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -82,7 +99,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
         //加载首页fragment
         NavHomeFragment homeFragment = findFragment(NavHomeFragment.class);
         if (homeFragment == null) {
-            loadRootFragment(R.id.main_content, NavHomeFragment.newInstance());
+            loadRootFragment(R.id.fl_content, NavHomeFragment.newInstance());
         }
 
     }
@@ -98,7 +115,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
         if (navigationView != null) {
             NavigationMenuView navigationMenuView = (NavigationMenuView) navigationView.getChildAt(0);
             if (navigationMenuView != null) {
-                navigationMenuView.setVerticalFadingEdgeEnabled(false);
+                navigationMenuView.setVerticalScrollBarEnabled(false);
             }
         }
     }
@@ -146,23 +163,25 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
         closeDrawer();
         switch (item.getItemId()) {
             case R.id.nav_home:
-                NavHomeFragment navHomeFragment = findFragment(NavHomeFragment.class);
-                if (navHomeFragment == null)
-                    start(navHomeFragment, SupportFragment.SINGLETASK);
-                else
+                NavHomeFragment homeFragment = findFragment(NavHomeFragment.class);
+                if (homeFragment == null) {
+                    start(NavHomeFragment.newInstance(), SupportFragment.SINGLETASK);
+                } else {
                     popTo(NavHomeFragment.class, false);
+                }
                 break;
             case R.id.nav_history:
-                NavHistoryFragment navHistoryFragment = findFragment(NavHistoryFragment.class);
-                if (navHistoryFragment == null)
-                    popTo(NavHistoryFragment.class, false, new TimerTask() {
+                NavHistoryFragment historyFragment = findFragment(NavHistoryFragment.class);
+                if (historyFragment == null) {
+                    popTo(NavHomeFragment.class, false, new TimerTask() {
                         @Override
                         public void run() {
-                            start(navHistoryFragment.newInstance());
+                            start(NavHistoryFragment.newInstance());
                         }
                     });
-                else
-                    popTo(NavHomeFragment.class, false);
+                } else {
+                    popTo(NavHistoryFragment.class, false);
+                }
                 break;
         }
         return true;
@@ -180,22 +199,21 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
             if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
                 pop();
             } else {
-                //放置后台
-//                moveTaskToBack(false);
+                // 放置后台
+                // moveTaskToBack(false);
 
-                //2秒点击退出应用
+                // 2秒内两次点击返回键退出应用
                 long nowTime = System.currentTimeMillis();
-                if (mPreTime - nowTime > 2000) {
-                    ArmsUtils.makeText(this, ArmsUtils.getString(this,
-                            R.string.double_click_to_exit));
+                if (nowTime - mPreTime > 2000) {
+                    ArmsUtils.makeText(this, ArmsUtils.getString(this, R.string.double_click_to_exit));
                     mPreTime = nowTime;
-                }else {
+                } else {
                     ArmsUtils.exitApp();
                 }
             }
         }
-
     }
+
     @Subscriber(tag = "openDrawer")
     public void openDrawer(MainTag mainTag) {
         if (!mDrawer.isDrawerOpen(GravityCompat.START)) {
