@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.ContentFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <!--android:fadingEdge="none" 边缘渐变效果-->
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="vertical"
+            app:headerLayout="@layout/nav_header"
+            app:itemBackground="@color/nav_menu_bg"
+            app:menu="@menu/nav_menu">
+
+        </android.support.design.widget.NavigationView>
+
+    </android.support.v7.widget.ContentFrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/nav_bottom_line"
+        android:visibility="visible"/>
+    <include layout="@layout/nav_bottom"></include>
+
+</android.support.v7.widget.LinearLayoutCompat>
