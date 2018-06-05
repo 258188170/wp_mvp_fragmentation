@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportFragment;
+import com.example.wp.wp_mvp_fragmentation.app.data.api.Router;
 import com.example.wp.wp_mvp_fragmentation.app.tag.MainTag;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.adapter.MainHomeFragmentAdapter;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -87,7 +88,7 @@ public class MainHomeFragment extends MySupportFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.main_active:
-                ARouter.getInstance().build("/app/web").withString("url", "http://www.baidu.com").navigation();
+                ARouter.getInstance().build(Router.WEB_ACTIVITY).withString("url", "http://www.baidu.com").navigation();
                 break;
             case R.id.main_game:
                 break;

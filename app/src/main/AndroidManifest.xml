@@ -41,7 +41,8 @@
             android:value="ConfigModule" />
 
         <activity android:name=".mvp.ui.activity.MainActivity" />
-        <activity android:name=".mvp.ui.activity.TestActivity"></activity>
+        <activity android:name=".mvp.ui.activity.TestActivity" />
+        <activity android:name=".mvp.ui.activity.VideoDetailActivity"></activity>
     </application>
 
 </manifest>

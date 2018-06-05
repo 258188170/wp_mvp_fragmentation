@@ -83,7 +83,7 @@ dependencies {
     implementation(rootProject.ext.dependencies["ijkplayer-exo"])
     implementation(rootProject.ext.dependencies["transitionseverywhere"])
     implementation(rootProject.ext.dependencies["gsyvideoplayer-androidvideocache"])
-//    compile(rootProject.ext.dependencies["gsyVideoPlayer-java"]) // 源码对本项目报错，修改后改用aar导入，但必须同时导入以上四个（ijkplayer-java、ijkplayer-exo、transitionseverywhere、gsyvideoplayer-androidvideocache）
+    implementation(rootProject.ext.dependencies["gsyVideoPlayer-java"]) // 源码对本项目报错，修改后改用aar导入，但必须同时导入以上四个（ijkplayer-java、ijkplayer-exo、transitionseverywhere、gsyvideoplayer-androidvideocache）
     implementation(rootProject.ext.dependencies["gsyVideoPlayer-armv5"])
     implementation(rootProject.ext.dependencies["gsyVideoPlayer-armv7a"])
     implementation(rootProject.ext.dependencies["gsyVideoPlayer-arm64"])

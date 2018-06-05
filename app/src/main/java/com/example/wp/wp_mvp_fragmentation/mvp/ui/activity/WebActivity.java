@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.wp.wp_mvp_fragmentation.app.data.api.Router;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.just.library.AgentWeb;
@@ -15,7 +16,7 @@ import com.just.library.ChromeClientCallbackManager;
 /**
  * Created by WangPeng on 2018/6/3.
  */
-@Route(path = "/app/web")
+@Route(path = Router.WEB_ACTIVITY)
 public class WebActivity extends BaseActivity implements ChromeClientCallbackManager.ReceivedTitleCallback {
 
     @Autowired

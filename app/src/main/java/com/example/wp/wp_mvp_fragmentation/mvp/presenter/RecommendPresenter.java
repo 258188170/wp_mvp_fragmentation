@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.wp.wp_mvp_fragmentation.app.data.api.Router;
 import com.example.wp.wp_mvp_fragmentation.mvp.contract.RecommendContract;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.adapter.RecommendMultiItemAdapter;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.adapter.entity.RecommendMultiItem;
@@ -136,7 +137,7 @@ public class RecommendPresenter extends BasePresenter<RecommendContract.Model, R
         if (data != null) {
             RecommendMultiItem item = data.get(position);
             if (RecommendMultiItem.isVideoItem(item.getItemType())) {
-                ARouter.getInstance().build("/video/detail").withString("aid", item.getIndexDataBean().getParam()).navigation();
+                ARouter.getInstance().build(Router.VIDEODETAIL_ACTIVITY).withString("aid", item.getIndexDataBean().getParam()).navigation();
             }
         }
     }

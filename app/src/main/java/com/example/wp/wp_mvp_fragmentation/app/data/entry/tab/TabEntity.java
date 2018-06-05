@@ -14,16 +14,16 @@ public class TabEntity implements CustomTabEntity {
     }
     @Override
     public String getTabTitle() {
-        return null;
+        return mTabTitle;
     }
 
     @Override
     public int getTabSelectedIcon() {
-        return 0;
+        return mTabSelectedIcon;
     }
 
     @Override
     public int getTabUnselectedIcon() {
-        return 0;
+        return mTabUnSelectedIcon;
     }
 }
