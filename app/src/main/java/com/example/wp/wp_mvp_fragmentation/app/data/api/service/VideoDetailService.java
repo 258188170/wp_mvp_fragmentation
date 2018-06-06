@@ -1,10 +1,10 @@
 package com.example.wp.wp_mvp_fragmentation.app.data.api.service;
 
 import com.example.wp.wp_mvp_fragmentation.app.data.entry.video.PlayUrl;
+import com.example.wp.wp_mvp_fragmentation.app.data.entry.video.Reply;
 import com.example.wp.wp_mvp_fragmentation.app.data.entry.video.Summary;
 
 import io.reactivex.Observable;
-import io.rx_cache2.Reply;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Query;

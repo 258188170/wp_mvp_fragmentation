@@ -28,6 +28,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportActivity;
 import com.example.wp.wp_mvp_fragmentation.app.data.api.Router;
+import com.example.wp.wp_mvp_fragmentation.app.data.entry.video.PlayUrl;
+import com.example.wp.wp_mvp_fragmentation.app.data.entry.video.VideoDetail;
 import com.example.wp.wp_mvp_fragmentation.di.component.DaggerVideoDetailComponent;
 import com.example.wp.wp_mvp_fragmentation.di.module.VideoDetailModule;
 import com.example.wp.wp_mvp_fragmentation.mvp.contract.VideoDetailContract;
@@ -387,6 +389,31 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
 
     @Override
     public void post(Runnable runnable) {
+
+    }
+
+    @Override
+    public void setTvAvStr(String avStr) {
+
+    }
+
+    @Override
+    public ImageView getIvCover() {
+        return null;
+    }
+
+    @Override
+    public void initViewPager(VideoDetail videoDetail) {
+
+    }
+
+    @Override
+    public void setTvVideoStartInfoStr(String tip) {
+
+    }
+
+    @Override
+    public void playVideo(PlayUrl url) {
 
     }
 }
