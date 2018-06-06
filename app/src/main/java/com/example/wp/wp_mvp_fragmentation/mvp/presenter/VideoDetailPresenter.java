@@ -37,4 +37,8 @@ public class VideoDetailPresenter extends BasePresenter<VideoDetailContract.Mode
         this.mImageLoader = null;
         this.mApplication = null;
     }
+
+    public void loadData(String aid) {
+
+    }
 }

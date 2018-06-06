@@ -3,8 +3,8 @@ package com.example.wp.wp_mvp_fragmentation.mvp.ui.listener;
 import android.support.design.widget.AppBarLayout;
 
 /**
- * @创建者 CSDN_LQR
- * @描述 监听CollapsingToolbarLayout的折叠状态
+ *
+ * 监听CollapsingToolbarLayout的折叠状态
  */
 public abstract class AppBarStateChangeEvent implements AppBarLayout.OnOffsetChangedListener {
     protected enum State {

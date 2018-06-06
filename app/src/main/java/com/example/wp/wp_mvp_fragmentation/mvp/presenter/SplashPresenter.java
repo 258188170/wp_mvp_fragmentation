@@ -45,8 +45,8 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
     }
 
     public void toStart() {
-        Observable.intervalRange(0, 4, 0, 1, TimeUnit.SECONDS,Schedulers.io())
-                .map(aLong -> 3L - aLong)
+        Observable.intervalRange(0, 5, 0, 1, TimeUnit.SECONDS,Schedulers.io())
+                .map(aLong -> 4L - aLong)
                 .doOnSubscribe(aLong -> mRootView.isClickable(false))
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))

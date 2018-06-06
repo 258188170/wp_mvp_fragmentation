@@ -14,10 +14,10 @@ import java.io.File;
 import java.util.Map;
 
 /**
- * @创建者 CSDN_LQR
- * @描述 LQRBiliBiliPlayer的配置类
+ *
+ *  LQRBiliBiliPlayer的配置类
  */
-public class LQRBiliPlayerOptionBuilder {
+public class PlayerOptionBuilder {
 
     // 退出全屏显示的控件图片
     protected int mShrinkImageRes = -1;
@@ -135,7 +135,7 @@ public class LQRBiliPlayerOptionBuilder {
      *
      * @param showFullAnimation 是否使用全屏动画效果
      */
-    public LQRBiliPlayerOptionBuilder setShowFullAnimation(boolean showFullAnimation) {
+    public PlayerOptionBuilder setShowFullAnimation(boolean showFullAnimation) {
         this.mShowFullAnimation = showFullAnimation;
         return this;
     }
@@ -143,7 +143,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 设置循环
      */
-    public LQRBiliPlayerOptionBuilder setLooping(boolean looping) {
+    public PlayerOptionBuilder setLooping(boolean looping) {
         this.mLooping = looping;
         return this;
     }
@@ -151,7 +151,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 设置播放过程中的回调
      */
-    public LQRBiliPlayerOptionBuilder setVideoAllCallBack(VideoAllCallBack videoAllCallBack) {
+    public PlayerOptionBuilder setVideoAllCallBack(VideoAllCallBack videoAllCallBack) {
         this.mVideoAllCallBack = videoAllCallBack;
         return this;
     }
@@ -159,7 +159,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 是否开启自动旋转
      */
-    public LQRBiliPlayerOptionBuilder setRotateViewAuto(boolean rotateViewAuto) {
+    public PlayerOptionBuilder setRotateViewAuto(boolean rotateViewAuto) {
         this.mRotateViewAuto = rotateViewAuto;
         return this;
     }
@@ -167,7 +167,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 播放速度
      */
-    public LQRBiliPlayerOptionBuilder setLockLand(boolean lockLand) {
+    public PlayerOptionBuilder setLockLand(boolean lockLand) {
         this.mLockLand = lockLand;
         return this;
     }
@@ -175,7 +175,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 变声不变调
      */
-    public LQRBiliPlayerOptionBuilder setSoundTouch(boolean soundTouch) {
+    public PlayerOptionBuilder setSoundTouch(boolean soundTouch) {
         this.mSounchTouch = soundTouch;
         return this;
     }
@@ -183,7 +183,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 全屏隐藏虚拟按键，默认打开
      */
-    public LQRBiliPlayerOptionBuilder setHideKey(boolean hideKey) {
+    public PlayerOptionBuilder setHideKey(boolean hideKey) {
         this.mHideKey = hideKey;
         return this;
     }
@@ -192,7 +192,7 @@ public class LQRBiliPlayerOptionBuilder {
      * 是否可以滑动界面改变进度，声音等
      * 默认true
      */
-    public LQRBiliPlayerOptionBuilder setIsTouchWidget(boolean isTouchWiget) {
+    public PlayerOptionBuilder setIsTouchWidget(boolean isTouchWiget) {
         this.mIsTouchWidget = isTouchWiget;
         return this;
     }
@@ -200,7 +200,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 是否需要显示流量提示,默认true
      */
-    public LQRBiliPlayerOptionBuilder setNeedShowWifiTip(boolean needShowWifiTip) {
+    public PlayerOptionBuilder setNeedShowWifiTip(boolean needShowWifiTip) {
         this.mNeedShowWifiTip = needShowWifiTip;
         return this;
     }
@@ -210,7 +210,7 @@ public class LQRBiliPlayerOptionBuilder {
      * 必须在setUp之前设置
      * 不设置使用默认
      */
-    public LQRBiliPlayerOptionBuilder setEnlargeImageRes(int enlargeImageRes) {
+    public PlayerOptionBuilder setEnlargeImageRes(int enlargeImageRes) {
         this.mEnlargeImageRes = enlargeImageRes;
         return this;
     }
@@ -220,7 +220,7 @@ public class LQRBiliPlayerOptionBuilder {
      * 必须在setUp之前设置
      * 不设置使用默认
      */
-    public LQRBiliPlayerOptionBuilder setShrinkImageRes(int mShrinkImageRes) {
+    public PlayerOptionBuilder setShrinkImageRes(int mShrinkImageRes) {
         this.mShrinkImageRes = mShrinkImageRes;
         return this;
     }
@@ -232,7 +232,7 @@ public class LQRBiliPlayerOptionBuilder {
      *
      * @param showPauseCover 默认true
      */
-    public LQRBiliPlayerOptionBuilder setShowPauseCover(boolean showPauseCover) {
+    public PlayerOptionBuilder setShowPauseCover(boolean showPauseCover) {
         this.mShowPauseCover = showPauseCover;
         return this;
     }
@@ -242,7 +242,7 @@ public class LQRBiliPlayerOptionBuilder {
      *
      * @param seekRatio 滑动快进的比例，默认1。数值越大，滑动的产生的seek越小
      */
-    public LQRBiliPlayerOptionBuilder setSeekRatio(float seekRatio) {
+    public PlayerOptionBuilder setSeekRatio(float seekRatio) {
         if (seekRatio < 0) {
             return this;
         }
@@ -255,7 +255,7 @@ public class LQRBiliPlayerOptionBuilder {
      *
      * @param rotateWithSystem 默认true
      */
-    public LQRBiliPlayerOptionBuilder setRotateWithSystem(boolean rotateWithSystem) {
+    public PlayerOptionBuilder setRotateWithSystem(boolean rotateWithSystem) {
         this.mRotateWithSystem = rotateWithSystem;
         return this;
     }
@@ -265,7 +265,7 @@ public class LQRBiliPlayerOptionBuilder {
      *
      * @param playTag 保证不重复就好
      */
-    public LQRBiliPlayerOptionBuilder setPlayTag(String playTag) {
+    public PlayerOptionBuilder setPlayTag(String playTag) {
         this.mPlayTag = playTag;
         return this;
     }
@@ -273,7 +273,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 设置播放位置防止错位
      */
-    public LQRBiliPlayerOptionBuilder setPlayPosition(int playPosition) {
+    public PlayerOptionBuilder setPlayPosition(int playPosition) {
         this.mPlayPosition = playPosition;
         return this;
     }
@@ -283,7 +283,7 @@ public class LQRBiliPlayerOptionBuilder {
      * 目前有时候前几秒有跳动问题，毫秒
      * 需要在startPlayLogic之前，即播放开始之前
      */
-    public LQRBiliPlayerOptionBuilder setSeekOnStart(long seekOnStart) {
+    public PlayerOptionBuilder setSeekOnStart(long seekOnStart) {
         this.mSeekOnStart = seekOnStart;
         return this;
     }
@@ -291,7 +291,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 播放url
      */
-    public LQRBiliPlayerOptionBuilder setUrl(String url) {
+    public PlayerOptionBuilder setUrl(String url) {
         this.mUrl = url;
         return this;
     }
@@ -299,7 +299,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 视频title
      */
-    public LQRBiliPlayerOptionBuilder setVideoTitle(String videoTitle) {
+    public PlayerOptionBuilder setVideoTitle(String videoTitle) {
         this.mVideoTitle = videoTitle;
         return this;
     }
@@ -307,7 +307,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 是否边缓存，m3u8等无效
      */
-    public LQRBiliPlayerOptionBuilder setCacheWithPlay(boolean cacheWithPlay) {
+    public PlayerOptionBuilder setCacheWithPlay(boolean cacheWithPlay) {
         this.mCacheWithPlay = cacheWithPlay;
         return this;
     }
@@ -315,7 +315,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 自定义缓存路径，推荐不设置，使用默认路径
      */
-    public LQRBiliPlayerOptionBuilder setCachePath(File cachePath) {
+    public PlayerOptionBuilder setCachePath(File cachePath) {
         this.mCachePath = cachePath;
         return this;
     }
@@ -323,12 +323,12 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 设置请求的头信息
      */
-    public LQRBiliPlayerOptionBuilder setMapHeadData(Map<String, String> mapHeadData) {
+    public PlayerOptionBuilder setMapHeadData(Map<String, String> mapHeadData) {
         this.mMapHeadData = mapHeadData;
         return this;
     }
 
-    public LQRBiliPlayerOptionBuilder setMyStandardVideoAllCallBack(MyStandardVideoAllCallBack myStandardVideoAllCallBack) {
+    public PlayerOptionBuilder setMyStandardVideoAllCallBack(MyStandardVideoAllCallBack myStandardVideoAllCallBack) {
         this.mMyStandardVideoAllCallBack = myStandardVideoAllCallBack;
         return this;
     }
@@ -336,7 +336,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 设置封面
      */
-    public LQRBiliPlayerOptionBuilder setThumbImageView(View view) {
+    public PlayerOptionBuilder setThumbImageView(View view) {
         mThumbImageView = view;
         return this;
     }
@@ -344,7 +344,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 底部进度条(弹出的)
      */
-    public LQRBiliPlayerOptionBuilder setBottomShowProgressBarDrawable(Drawable drawable, Drawable thumb) {
+    public PlayerOptionBuilder setBottomShowProgressBarDrawable(Drawable drawable, Drawable thumb) {
         mBottomShowProgressDrawable = drawable;
         mBottomShowProgressThumbDrawable = thumb;
         return this;
@@ -353,7 +353,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 底部进度条(非弹出)
      */
-    public LQRBiliPlayerOptionBuilder setBottomProgressBarDrawable(Drawable drawable) {
+    public PlayerOptionBuilder setBottomProgressBarDrawable(Drawable drawable) {
         mBottomProgressDrawable = drawable;
         return this;
     }
@@ -361,7 +361,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 声音进度条
      */
-    public LQRBiliPlayerOptionBuilder setDialogVolumeProgressBar(Drawable drawable) {
+    public PlayerOptionBuilder setDialogVolumeProgressBar(Drawable drawable) {
         mVolumeProgressDrawable = drawable;
         return this;
     }
@@ -370,7 +370,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 中间进度条字体颜色
      */
-    public LQRBiliPlayerOptionBuilder setDialogProgressColor(int highLightColor, int normalColor) {
+    public PlayerOptionBuilder setDialogProgressColor(int highLightColor, int normalColor) {
         mDialogProgressHighLightColor = highLightColor;
         mDialogProgressNormalColor = normalColor;
         return this;
@@ -379,7 +379,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 是否点击封面可以播放
      */
-    public LQRBiliPlayerOptionBuilder setThumbPlay(boolean thumbPlay) {
+    public PlayerOptionBuilder setThumbPlay(boolean thumbPlay) {
         this.mThumbPlay = thumbPlay;
         return this;
     }
@@ -388,7 +388,7 @@ public class LQRBiliPlayerOptionBuilder {
      * 是否需要全屏锁定屏幕功能
      * 如果单独使用请设置setIfCurrentIsFullscreen为true
      */
-    public LQRBiliPlayerOptionBuilder setNeedLockFull(boolean needLockFull) {
+    public PlayerOptionBuilder setNeedLockFull(boolean needLockFull) {
         this.mNeedLockFull = needLockFull;
         return this;
     }
@@ -396,7 +396,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 锁屏点击
      */
-    public LQRBiliPlayerOptionBuilder setLockClickListener(LockClickListener lockClickListener) {
+    public PlayerOptionBuilder setLockClickListener(LockClickListener lockClickListener) {
         this.mLockClickListener = lockClickListener;
         return this;
     }
@@ -406,7 +406,7 @@ public class LQRBiliPlayerOptionBuilder {
      *
      * @param dismissControlTime 毫秒，默认2500
      */
-    public LQRBiliPlayerOptionBuilder setDismissControlTime(int dismissControlTime) {
+    public PlayerOptionBuilder setDismissControlTime(int dismissControlTime) {
         this.mDismissControlTime = dismissControlTime;
         return this;
     }
@@ -414,7 +414,7 @@ public class LQRBiliPlayerOptionBuilder {
     /**
      * 设置滤镜效果
      */
-    public LQRBiliPlayerOptionBuilder setEffectFilter(GSYVideoGLView.ShaderInterface effectFilter) {
+    public PlayerOptionBuilder setEffectFilter(GSYVideoGLView.ShaderInterface effectFilter) {
         this.mEffectFilter = effectFilter;
         return this;
     }

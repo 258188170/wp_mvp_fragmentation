@@ -8,8 +8,8 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_launcher_timer"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
@@ -17,7 +17,7 @@
         android:background="@drawable/border_circle_timer"
         android:gravity="center"
         android:textColor="#b2b2b2"
-        android:textSize="12sp" />
+        android:textSize="10sp" />
     <ImageView
         android:layout_width="450px"
         android:layout_height="500px"

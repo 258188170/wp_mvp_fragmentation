@@ -89,7 +89,7 @@ public class SplashActivity extends MySupportActivity<SplashPresenter> implement
 
     @Override
     public void showTimer(Long time) {
-        mTextView.setText(time + "s");
+        mTextView.setText( "跳过");
     }
 
     //根据需求待实现
