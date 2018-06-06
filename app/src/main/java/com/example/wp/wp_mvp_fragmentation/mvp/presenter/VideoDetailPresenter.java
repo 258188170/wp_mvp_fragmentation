@@ -41,4 +41,8 @@ public class VideoDetailPresenter extends BasePresenter<VideoDetailContract.Mode
     public void loadData(String aid) {
 
     }
+
+    public void loadPlayUrl(String aid) {
+
+    }
 }

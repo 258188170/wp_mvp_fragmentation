@@ -1,2 +1,3 @@
 # wp_mvp_fragmentation
-此demo是MVPArms框架和一个Activity多fragment框架(Fragmentation)结合
+该项目是MVPArms框架和一个Activity多fragment框架(Fragmentation)结合做的学习项目
+熟练掌握RxJava,Retrofit2,折叠状态栏,等

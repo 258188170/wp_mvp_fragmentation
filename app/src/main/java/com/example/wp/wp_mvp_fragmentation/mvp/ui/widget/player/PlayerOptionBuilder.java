@@ -419,7 +419,7 @@ public class PlayerOptionBuilder {
         return this;
     }
 
-    public void build(LQRBiliPlayer biliBiliPlayer) {
+    public void build(Player biliBiliPlayer) {
         if (mMyStandardVideoAllCallBack != null) {
             biliBiliPlayer.setStandardVideoAllCallBack(mMyStandardVideoAllCallBack);
         }

@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +17,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,13 +34,14 @@ import com.example.wp.wp_mvp_fragmentation.mvp.contract.VideoDetailContract;
 import com.example.wp.wp_mvp_fragmentation.mvp.presenter.VideoDetailPresenter;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.listener.AppBarStateChangeEvent;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.listener.MyStandardVideoAllCallBack;
-import com.example.wp.wp_mvp_fragmentation.mvp.ui.widget.player.LQRBiliPlayer;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.widget.player.Player;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.widget.player.PlayerOptionBuilder;
 import com.flyco.systembar.SystemBarHelper;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 
 import butterknife.BindView;
 
@@ -71,7 +76,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     @BindView(R.id.tv_av)
     TextView mTvAv;
     @BindView(R.id.video_view)
-    LQRBiliPlayer mVideoView;
+    Player mVideoView;
     @BindView(R.id.rl_video_tip)
     RelativeLayout mRlVideoTip;
     @BindView(R.id.tv_video_start_info)
@@ -166,12 +171,38 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     }
 
     private void showHideFab(int verticalOffset) {
+        //没有滑动
+        if (verticalOffset == 0) {
+            showFab();
+        } else if (verticalOffset < 0 && Math.abs(verticalOffset) > 100) {
+            hideFab();
+        }
+    }
 
+    private void hideFab() {
+        if (mFab.getVisibility() == View.VISIBLE && !isHidingFab) {
+            isHidingFab = true;
+            mFab.animate().scaleY(0).scaleX(0)
+                    .setInterpolator(new AccelerateInterpolator())
+                    .start();
+            mFab.setClickable(false);
+        }
+    }
+
+    private void showFab() {
+        if (mFab.getVisibility() == View.VISIBLE) {
+            isHidingFab = false;
+            mFab.animate().scaleX(1f).scaleY(1f)
+                    .setInterpolator(new AccelerateInterpolator())
+                    .start();
+            mFab.setClickable(true);
+        }
     }
 
     private void initFab() {
         //悬浮按钮添加点击事件
         mFab.setOnClickListener(v -> {
+            //以fab喂远点沿Y方向移动 距离是mAnchorY
             ObjectAnimator translationY = ObjectAnimator.ofFloat(mFab, "translationY",
                     ArmsUtils.dip2px(this, mAnchorY));
             translationY.addListener(new AnimatorListenerAdapter() {
@@ -179,6 +210,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     mFab.setVisibility(View.GONE);
+                    //实现圆形缩放动画效果
                     showVideoStartTip();
                 }
             });
@@ -187,12 +219,37 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     }
 
     private void showVideoStartTip() {
-
+        mRlVideoTip.setVisibility(View.VISIBLE);
+        //api大于等于21,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Animator circularReveal = ViewAnimationUtils.createCircularReveal(mRlVideoTip,
+                    mIvCover.getWidth() - ArmsUtils.dip2px(this, mAnchorX),
+                    mIvCover.getHeight() - ArmsUtils.dip2px(this, mAnchorY),
+                    0,
+                    (float) Math.hypot(mIvCover.getWidth(), mIvCover.getHeight()));
+            circularReveal.setDuration(800);
+            circularReveal.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    mIvCover.setVisibility(View.GONE);
+                    mPresenter.loadPlayUrl(aid);
+                }
+            });
+            //开始动画
+            circularReveal.start();
+        } else {
+            mPresenter.loadPlayUrl(aid);
+        }
+        //锁定appBarLayout
+        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mAppbar.getChildAt(0).getLayoutParams();
+        params.setScrollFlags(0);
+        mAppbar.getChildAt(0).setLayoutParams(params);
     }
 
     private void initVideoPlayer() {
         //设置开始播放了才能旋转和全屏
-        mOrientationUtils = new OrientationUtils(this,mVideoView);
+        mOrientationUtils = new OrientationUtils(this, mVideoView);
         mOrientationUtils.setEnable(false);
         mGsyVideoOptionBuilder = new PlayerOptionBuilder()
                 .setUrl("")
@@ -205,7 +262,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
                 .setSeekRatio(1)
                 .setCacheWithPlay(cacheVideo)
                 .setVideoTitle("")
-                .setMyStandardVideoAllCallBack(new MyStandardVideoAllCallBack(){
+                .setMyStandardVideoAllCallBack(new MyStandardVideoAllCallBack() {
                     @Override
                     public void onPrepared(String s, Object... objects) {
                         super.onPrepared(s, objects);
@@ -220,7 +277,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
                     @Override
                     public void onQuitFullscreen(String s, Object... objects) {
                         super.onQuitFullscreen(s, objects);
-                        if (mOrientationUtils !=null){
+                        if (mOrientationUtils != null) {
                             mOrientationUtils.backToProtVideo();
                         }
                     }
@@ -229,14 +286,76 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
         mVideoView.getFullscreenButton().setOnClickListener(v -> {
             //直接横屏
             mOrientationUtils.resolveByClick();
-             //第一个true是否需要隐藏actionbar,第二个是否小隐藏状态栏
-            mVideoView.startWindowFullscreen(this,true,true);
+            //第一个true是否需要隐藏actionbar,第二个是否小隐藏状态栏
+            mVideoView.startWindowFullscreen(this, true, true);
 
         });
-        mVideoView.setLockClickListener((view,lock)->{
+        mVideoView.setLockClickListener((view, lock) -> {
+            if (mOrientationUtils != null) {
+                //配合下方的onConfigurationChanged
+                mOrientationUtils.setEnable(!lock);
+            }
+        });
+        mVideoView.getBackButton().setVisibility(View.GONE);
+        mVideoView.setOnWidgetVisibleListener(new Player.OnWidgetVisibleListener() {
+            @Override
+            public void onShow() {
+                //非全屏
+                if (!mVideoView.isIfCurrentIsFullscreen()) {
+                    mToolbar.setVisibility(View.VISIBLE);
+                }
+            }
 
+            @Override
+            public void onHide() {
+                //非全屏
+                if (mVideoView.isIfCurrentIsFullscreen()) {
+                    mToolbar.setVisibility(View.INVISIBLE);
+                }
+            }
         });
 
+    }
+
+    private GSYVideoPlayer getCurPlay() {
+        if (mVideoView.getFullWindowPlayer() != null) {
+            return mVideoView.getFullWindowPlayer();
+        }
+        return mVideoView;
+    }
+
+    @Override
+    protected void onResume() {
+        getCurPlay().onVideoResume();
+        super.onResume();
+        isPause = false;
+    }
+
+    @Override
+    protected void onPause() {
+        getCurPlay().onVideoPause();
+        super.onPause();
+        isPause = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (isPlay) {
+            getCurPlay().release();
+        }
+        if (mOrientationUtils != null) {
+            mOrientationUtils.releaseListener();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //如果旋转了就全屏
+        if (isPlay && !isPause) {
+            mVideoView.onConfigurationChanged(this, newConfig, mOrientationUtils);
+        }
     }
 
     @Override

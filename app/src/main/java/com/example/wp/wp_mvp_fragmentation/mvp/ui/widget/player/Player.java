@@ -32,7 +32,7 @@ import java.io.File;
  *
  * 自定义仿Bilibili播放器
  */
-public class LQRBiliPlayer extends GSYVideoPlayer {
+public class Player extends GSYVideoPlayer {
 
     protected StandardVideoAllCallBack mStandardVideoAllCallBack;
 
@@ -78,15 +78,15 @@ public class LQRBiliPlayer extends GSYVideoPlayer {
     private ImageView mIvStartStop;
 
 
-    public LQRBiliPlayer(Context context, Boolean fullFlag) {
+    public Player(Context context, Boolean fullFlag) {
         super(context, fullFlag);
     }
 
-    public LQRBiliPlayer(Context context) {
+    public Player(Context context) {
         super(context);
     }
 
-    public LQRBiliPlayer(Context context, AttributeSet attrs) {
+    public Player(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -124,7 +124,7 @@ public class LQRBiliPlayer extends GSYVideoPlayer {
     @Override
     public void startPlayLogic() {
         if (mStandardVideoAllCallBack != null) {
-            mStandardVideoAllCallBack.onClickStartThumb(mOriginUrl, mTitle, LQRBiliPlayer.this);
+            mStandardVideoAllCallBack.onClickStartThumb(mOriginUrl, mTitle, Player.this);
         }
         prepareVideo();
         startDismissControlViewTimer();
@@ -308,7 +308,7 @@ public class LQRBiliPlayer extends GSYVideoPlayer {
     public GSYBaseVideoPlayer startWindowFullscreen(Context context, boolean actionBar, boolean statusBar) {
         GSYBaseVideoPlayer gsyBaseVideoPlayer = super.startWindowFullscreen(context, actionBar, statusBar);
         if (gsyBaseVideoPlayer != null) {
-            LQRBiliPlayer gsyVideoPlayer = (LQRBiliPlayer) gsyBaseVideoPlayer;
+            Player gsyVideoPlayer = (Player) gsyBaseVideoPlayer;
             gsyVideoPlayer.setStandardVideoAllCallBack(mStandardVideoAllCallBack);
             gsyVideoPlayer.setLockClickListener(mLockClickListener);
             gsyVideoPlayer.setNeedLockFull(isNeedLockFull());
@@ -562,7 +562,7 @@ public class LQRBiliPlayer extends GSYVideoPlayer {
     /**
      * 全屏的UI逻辑
      */
-    private void initFullUI(LQRBiliPlayer LQRBiliBiliPlayer) {
+    private void initFullUI(Player LQRBiliBiliPlayer) {
         if (mBottomProgressDrawable != null) {
             LQRBiliBiliPlayer.setBottomProgressBarDrawable(mBottomProgressDrawable);
         }
