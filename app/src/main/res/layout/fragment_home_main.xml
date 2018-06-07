@@ -32,20 +32,20 @@
 
                     <ImageView
                         android:layout_width="20dp"
-                        android:layout_marginLeft="@dimen/dp_10"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_drawer_home"/>
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:src="@mipmap/ic_drawer_home" />
 
                     <ImageView
                         android:layout_width="@dimen/toolbar_avatar_size"
                         android:layout_height="@dimen/toolbar_avatar_size"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:src="@mipmap/ico_user_default"/>
+                        android:src="@mipmap/ico_user_default" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"/>
+                        android:maxLines="1" />
 
                 </LinearLayout>
 

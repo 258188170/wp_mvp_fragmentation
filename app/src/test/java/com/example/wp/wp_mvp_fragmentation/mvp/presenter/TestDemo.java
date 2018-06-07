@@ -6,6 +6,7 @@ import org.junit.Test;
  * Created by wangpeng .
  */
 public class TestDemo {
+    int[] arr = new int[]{564, 23, 42, 546, 2, 3, 4, 213};
 
     //翻转字符串
     @Test
@@ -22,5 +23,21 @@ public class TestDemo {
             buffer.append(str.charAt(i));
         }
         System.out.print(buffer.toString());
+    }
+
+    @Test
+    public void demo2() {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - 1 - i;j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + "--");
+        }
     }
 }

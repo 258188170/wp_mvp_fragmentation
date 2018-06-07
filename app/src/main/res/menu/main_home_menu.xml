@@ -5,6 +5,7 @@
         android:id="@+id/main_active"
         android:icon="@mipmap/ic_active_menu"
         android:title="@string/main_active"
+
         app:showAsAction="always"/>
     <item
         android:id="@+id/main_game"

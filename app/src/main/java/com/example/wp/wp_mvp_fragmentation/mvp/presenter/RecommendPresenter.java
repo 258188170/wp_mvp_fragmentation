@@ -70,7 +70,6 @@ public class RecommendPresenter extends BasePresenter<RecommendContract.Model, R
                 .subscribe(new ErrorHandleSubscriber<List<RecommendMultiItem>>(mErrorHandler) {
                     @Override
                     public void onNext(List<RecommendMultiItem> recommendMultiItems) {
-                        Log.i(TAG, "onNext:"+recommendMultiItems.size());
                         if (recommendMultiItems != null) {
                             setAdapter(recommendMultiItems, refresh);
                         }
@@ -137,6 +136,7 @@ public class RecommendPresenter extends BasePresenter<RecommendContract.Model, R
         if (data != null) {
             RecommendMultiItem item = data.get(position);
             if (RecommendMultiItem.isVideoItem(item.getItemType())) {
+                Log.i(TAG, "onItemClick: "+item.getIndexDataBean().getParam());
                 ARouter.getInstance().build(Router.VIDEODETAIL_ACTIVITY).withString("aid", item.getIndexDataBean().getParam()).navigation();
             }
         }

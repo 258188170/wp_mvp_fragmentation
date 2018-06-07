@@ -42,11 +42,13 @@ android {
     buildToolsVersion '27.0.3'
 }
 
-//repositories { flatDir { dirs 'libs' } }
+repositories { flatDir { dirs 'libs' } }
+
 
 dependencies {
+
     implementation fileTree(include: ['*.aar'], dir: 'libs')
-//    compile(name:'gsyVideoPlayer-java', ext:'aar')
+
     //support
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation(rootProject.ext.dependencies["cardview-v7"]) {
@@ -83,7 +85,7 @@ dependencies {
     implementation(rootProject.ext.dependencies["ijkplayer-exo"])
     implementation(rootProject.ext.dependencies["transitionseverywhere"])
     implementation(rootProject.ext.dependencies["gsyvideoplayer-androidvideocache"])
-    implementation(rootProject.ext.dependencies["gsyVideoPlayer-java"]) // 源码对本项目报错，修改后改用aar导入，但必须同时导入以上四个（ijkplayer-java、ijkplayer-exo、transitionseverywhere、gsyvideoplayer-androidvideocache）
+//    compile(rootProject.ext.dependencies["gsyVideoPlayer-java"]) // 源码对本项目报错，修改后改用aar导入，但必须同时导入以上四个（ijkplayer-java、ijkplayer-exo、transitionseverywhere、gsyvideoplayer-androidvideocache）
     implementation(rootProject.ext.dependencies["gsyVideoPlayer-armv5"])
     implementation(rootProject.ext.dependencies["gsyVideoPlayer-armv7a"])
     implementation(rootProject.ext.dependencies["gsyVideoPlayer-arm64"])
@@ -91,6 +93,7 @@ dependencies {
     implementation(rootProject.ext.dependencies["gsyVideoPlayer-x86"])
     //更多配置版so，增加了concat,rtsp,mpeg，crypto
     //compile(rootProject.ext.dependencies["gsyVideoPlayer-ex_so"])
+
 
     // test
     testImplementation rootProject.ext.dependencies["junit"]

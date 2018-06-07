@@ -3,10 +3,13 @@ package com.example.wp.wp_mvp_fragmentation.mvp.presenter;
 import android.app.Application;
 
 import com.example.wp.wp_mvp_fragmentation.app.data.api.Api;
+import com.example.wp.wp_mvp_fragmentation.app.data.entry.video.PlayUrl;
+import com.example.wp.wp_mvp_fragmentation.app.data.entry.video.Summary;
 import com.example.wp.wp_mvp_fragmentation.app.data.entry.video.VideoDetail;
 import com.example.wp.wp_mvp_fragmentation.mvp.contract.VideoDetailContract;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.http.imageloader.glide.ImageConfigImpl;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
@@ -34,7 +37,7 @@ public class VideoDetailPresenter extends BasePresenter<VideoDetailContract.Mode
     AppManager mAppManager;
     private final int page = 1;
     private final int rows = 20;
-    private final String startInfoStr = "初始化播放器...";
+    private final String mStartInfoStr = "初始化播放器...";
 
     @Inject
     public VideoDetailPresenter(VideoDetailContract.Model model, VideoDetailContract.View rootView) {
@@ -61,15 +64,41 @@ public class VideoDetailPresenter extends BasePresenter<VideoDetailContract.Mode
                 });
 
 
-
     }
 
     private void setViewDetail(VideoDetail videoDetail) {
-
+        if (videoDetail == null) {
+            return;
+        }
+        //填充视频详情界面信息
+        Summary summary = videoDetail.getSummary();
+        if (summary == null || summary.getData() == null) {
+            return;
+        }
+        Summary.DataBean dataBean = summary.getData();
+        mRootView.setTvAvStr(dataBean.getStat() == null ? "" : String.valueOf(dataBean.getStat().getAid()));
+        mImageLoader.loadImage(mAppManager.getCurrentActivity(), ImageConfigImpl
+                .builder()
+                .url(dataBean.getPic())
+                .imageView(mRootView.getIvCover()).build());
+        //填充简介评论Fragment信息
+        mRootView.initViewPager(videoDetail);
     }
 
     public void loadPlayUrl(String aid) {
-
+        //根据加载情况,动态修改提示
+        mRootView.setTvVideoStartInfoStr(mStartInfoStr);
+        mModel.getPlayurl(aid)
+                .retryWhen(new RetryWithDelay(3, 2))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ErrorHandleSubscriber<PlayUrl>(mErrorHandler) {
+                    @Override
+                    public void onNext(PlayUrl url) {
+                        mRootView.playVideo(url);
+                    }
+                });
     }
 
     @Override

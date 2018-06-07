@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.wp.wp_mvp_fragmentation.R;
 import com.example.wp.wp_mvp_fragmentation.app.base.MySupportActivity;
 import com.example.wp.wp_mvp_fragmentation.app.data.api.Router;
@@ -34,6 +36,7 @@ import com.example.wp.wp_mvp_fragmentation.di.component.DaggerVideoDetailCompone
 import com.example.wp.wp_mvp_fragmentation.di.module.VideoDetailModule;
 import com.example.wp.wp_mvp_fragmentation.mvp.contract.VideoDetailContract;
 import com.example.wp.wp_mvp_fragmentation.mvp.presenter.VideoDetailPresenter;
+import com.example.wp.wp_mvp_fragmentation.mvp.ui.adapter.VideoDetailFragmentAdapter;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.listener.AppBarStateChangeEvent;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.listener.MyStandardVideoAllCallBack;
 import com.example.wp.wp_mvp_fragmentation.mvp.ui.widget.player.Player;
@@ -44,6 +47,8 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
+
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -98,6 +103,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
+        ARouter.getInstance().inject(this);
         DaggerVideoDetailComponent //如找不到该类,请编译一下项目
                 .builder()
                 .appComponent(appComponent)
@@ -117,6 +123,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
         initToolbar();
         initFab();
         initVideoPlayer();
+        Log.i(TAG, "initData: " + aid);
         if (!TextUtils.isEmpty(aid)) {
             mPresenter.loadData(aid);
         } else {
@@ -395,25 +402,45 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     @Override
     public void setTvAvStr(String avStr) {
 
+        mTvAv.setText("av" + avStr);
     }
 
     @Override
     public ImageView getIvCover() {
-        return null;
+        return mIvCover;
     }
 
     @Override
     public void initViewPager(VideoDetail videoDetail) {
+        VideoDetailFragmentAdapter adapter = new VideoDetailFragmentAdapter(
+                getSupportFragmentManager(), this, videoDetail);
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setViewPager(mViewPager);
+
 
     }
 
     @Override
     public void setTvVideoStartInfoStr(String tip) {
 
+        mTvVideoStartInfo.setText(tip);
     }
 
     @Override
     public void playVideo(PlayUrl url) {
 
+        if (url != null) {
+            Map<String, PlayUrl.DurlBean> durl = url.getDurl();
+            if (durl != null) {
+                PlayUrl.DurlBean durlBean = durl.get("0");
+                if (durlBean != null) {
+                    mVideoView.release();
+                    mGsyVideoOptionBuilder.setUrl(durlBean.getUrl())
+                            .setCacheWithPlay(cacheVideo)
+                            .build(mVideoView);
+                    mVideoView.postDelayed(() -> mVideoView.startPlayLogic(), 300);
+                }
+            }
+        }
     }
 }
