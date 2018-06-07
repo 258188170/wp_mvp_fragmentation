@@ -16,10 +16,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -118,12 +118,11 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     }
 
     @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
+    public void initData(Bundle savedInstanceState) {
         initStatusBar();
         initToolbar();
         initFab();
         initVideoPlayer();
-        Log.i(TAG, "initData: " + aid);
         if (!TextUtils.isEmpty(aid)) {
             mPresenter.loadData(aid);
         } else {
@@ -132,94 +131,65 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     }
 
     private void initStatusBar() {
-        //设置satusBar透明
+        //设置StatusBar透明
         SystemBarHelper.immersiveStatusBar(this);
         SystemBarHelper.setHeightAndPadding(this, mToolbar);
     }
 
     private void initToolbar() {
-
         // 1.appbarLayout
         mAppbar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> showHideFab(verticalOffset));
         mAppbar.addOnOffsetChangedListener(new AppBarStateChangeEvent() {
             @Override
-            public void onStateChanged(AppBarLayout appBarLayout, State state, int verticalOffset) {
+            public void onStateChanged(AppBarLayout appBarLayout, AppBarStateChangeEvent.State state, int verticalOffset) {
                 if (state == State.EXPANDED) {
                     mTvAv.setVisibility(View.VISIBLE);
                     mTvPlayImmediately.setVisibility(View.GONE);
-                    //点击了立即播放
+                    // 点击了立刻播放
                     if (isPlayImmediately) {
                         mFab.performClick();
                     }
                 } else if (state == State.COLLAPSED) {
                     mTvAv.setVisibility(View.GONE);
                     mTvPlayImmediately.setVisibility(View.VISIBLE);
-                } else if (state == State.IDLE) {
+                } else {
                     mTvAv.setVisibility(View.VISIBLE);
                     mTvPlayImmediately.setVisibility(View.GONE);
                 }
             }
         });
-        //2.toolBar
+        // 2.toolbar
         setSupportActionBar(mToolbar);
-        final ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            // 给左上角图标的左边加上一个返回的图标 。
             actionBar.setDisplayHomeAsUpEnabled(true);
-            //不设置标题
             actionBar.setDisplayShowTitleEnabled(false);
         }
-        //设置返回图标监听事件
         mToolbar.setNavigationOnClickListener(v -> onBackPressedSupport());
         mTvPlayImmediately.setOnClickListener(v -> {
             isPlayImmediately = true;
             mAppbar.setExpanded(true, true);
         });
-        //3.设置CollapsingToolBarLayout
-        mCollapsingToolbarLayout.setTitleEnabled(false);//必须关闭文字,否则toobar中自定义控件位置会受影响
+        // 3.CollapsingToolbarLayout
+        mCollapsingToolbarLayout.setTitleEnabled(false);// 必须关闭文字，否则Toolbar中的自定义控件位置会受影响
     }
 
-    private void showHideFab(int verticalOffset) {
-        //没有滑动
-        if (verticalOffset == 0) {
-            showFab();
-        } else if (verticalOffset < 0 && Math.abs(verticalOffset) > 100) {
-            hideFab();
-        }
-    }
-
-    private void hideFab() {
-        if (mFab.getVisibility() == View.VISIBLE && !isHidingFab) {
-            isHidingFab = true;
-            mFab.animate().scaleY(0).scaleX(0)
-                    .setInterpolator(new AccelerateInterpolator())
-                    .start();
-            mFab.setClickable(false);
-        }
-    }
-
-    private void showFab() {
-        if (mFab.getVisibility() == View.VISIBLE) {
-            isHidingFab = false;
-            mFab.animate().scaleX(1f).scaleY(1f)
-                    .setInterpolator(new AccelerateInterpolator())
-                    .start();
-            mFab.setClickable(true);
-        }
+    @Override
+    public void initViewPager(VideoDetail videoDetail) {
+        VideoDetailFragmentAdapter videoDetailFragmentAdapter = new
+                VideoDetailFragmentAdapter(getSupportFragmentManager(), this, videoDetail);
+        mViewPager.setAdapter(videoDetailFragmentAdapter);
+        mTabLayout.setViewPager(mViewPager);
     }
 
     private void initFab() {
-        //悬浮按钮添加点击事件
-        mFab.setOnClickListener(v -> {
-            //以fab喂远点沿Y方向移动 距离是mAnchorY
-            ObjectAnimator translationY = ObjectAnimator.ofFloat(mFab, "translationY",
-                    ArmsUtils.dip2px(this, mAnchorY));
+        mFab.setOnClickListener(view -> {
+            ObjectAnimator translationY = ObjectAnimator.ofFloat(mFab, "translationY", -ArmsUtils.dip2px(this, mAnchorY));
             translationY.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     mFab.setVisibility(View.GONE);
-                    //实现圆形缩放动画效果
                     showVideoStartTip();
                 }
             });
@@ -227,37 +197,8 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
         });
     }
 
-    private void showVideoStartTip() {
-        mRlVideoTip.setVisibility(View.VISIBLE);
-        //api大于等于21,
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator circularReveal = ViewAnimationUtils.createCircularReveal(mRlVideoTip,
-                    mIvCover.getWidth() - ArmsUtils.dip2px(this, mAnchorX),
-                    mIvCover.getHeight() - ArmsUtils.dip2px(this, mAnchorY),
-                    0,
-                    (float) Math.hypot(mIvCover.getWidth(), mIvCover.getHeight()));
-            circularReveal.setDuration(800);
-            circularReveal.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    mIvCover.setVisibility(View.GONE);
-                    mPresenter.loadPlayUrl(aid);
-                }
-            });
-            //开始动画
-            circularReveal.start();
-        } else {
-            mPresenter.loadPlayUrl(aid);
-        }
-        //锁定appBarLayout
-        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mAppbar.getChildAt(0).getLayoutParams();
-        params.setScrollFlags(0);
-        mAppbar.getChildAt(0).setLayoutParams(params);
-    }
-
     private void initVideoPlayer() {
-        //设置开始播放了才能旋转和全屏
+        // 开始播放了才能旋转和全屏
         mOrientationUtils = new OrientationUtils(this, mVideoView);
         mOrientationUtils.setEnable(false);
         mGsyVideoOptionBuilder = new PlayerOptionBuilder()
@@ -275,10 +216,10 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
                     @Override
                     public void onPrepared(String s, Object... objects) {
                         super.onPrepared(s, objects);
-                        //显示播放器
+                        // 显示播放器
                         mRlVideoTip.setVisibility(View.GONE);
                         mVideoView.setVisibility(View.VISIBLE);
-                        //开始播放了才能旋转
+                        // 开始播放了才能旋转和全屏
                         mOrientationUtils.setEnable(true);
                         isPlay = true;
                     }
@@ -293,11 +234,10 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
                 });
         mGsyVideoOptionBuilder.build(mVideoView);
         mVideoView.getFullscreenButton().setOnClickListener(v -> {
-            //直接横屏
+            // 直接横屏
             mOrientationUtils.resolveByClick();
-            //第一个true是否需要隐藏actionbar,第二个是否小隐藏状态栏
-            mVideoView.startWindowFullscreen(this, true, true);
-
+            // 第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+            mVideoView.startWindowFullscreen(VideoDetailActivity.this, true, true);
         });
         mVideoView.setLockClickListener((view, lock) -> {
             if (mOrientationUtils != null) {
@@ -309,7 +249,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
         mVideoView.setOnWidgetVisibleListener(new Player.OnWidgetVisibleListener() {
             @Override
             public void onShow() {
-                //非全屏
+                // 非全屏
                 if (!mVideoView.isIfCurrentIsFullscreen()) {
                     mToolbar.setVisibility(View.VISIBLE);
                 }
@@ -317,13 +257,85 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
 
             @Override
             public void onHide() {
-                //非全屏
-                if (mVideoView.isIfCurrentIsFullscreen()) {
+                // 非全屏
+                if (!mVideoView.isIfCurrentIsFullscreen()) {
                     mToolbar.setVisibility(View.INVISIBLE);
                 }
             }
         });
+    }
 
+    private void showVideoStartTip() {
+        mRlVideoTip.setVisibility(View.VISIBLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Animator circularReveal = ViewAnimationUtils.createCircularReveal(mRlVideoTip,
+                    mIvCover.getWidth() - ArmsUtils.dip2px(VideoDetailActivity.this, mAnchorX),
+                    mIvCover.getHeight() - ArmsUtils.dip2px(VideoDetailActivity.this, mAnchorY),
+                    0,
+                    ((float) Math.hypot(mIvCover.getWidth(), mIvCover.getHeight())));
+            circularReveal.setDuration(800);
+            circularReveal.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    mIvCover.setVisibility(View.GONE);
+                    mPresenter.loadPlayUrl(aid);
+                }
+            });
+            circularReveal.start();
+        } else {
+            mPresenter.loadPlayUrl(aid);
+        }
+        // 锁定AppBarLayout
+        AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) mAppbar.getChildAt(0).getLayoutParams();
+        layoutParams.setScrollFlags(0);
+        mAppbar.getChildAt(0).setLayoutParams(layoutParams);
+    }
+
+    @Override
+    public void playVideo(PlayUrl playUrl) {
+        if (playUrl != null) {
+            Map<String, PlayUrl.DurlBean> durl = playUrl.getDurl();
+            if (durl != null) {
+                PlayUrl.DurlBean durlBean = durl.get("0");
+                if (durlBean != null) {
+                    mVideoView.release();
+                    mGsyVideoOptionBuilder
+                            .setUrl(durlBean.getUrl())
+                            .setCacheWithPlay(cacheVideo)
+                            .build(mVideoView);
+                    mVideoView.postDelayed(() -> mVideoView.startPlayLogic(), 300);
+                }
+            }
+        }
+    }
+
+    public void showHideFab(int verticalOffset) {
+        if (verticalOffset == 0) {
+            showFab();
+        } else if (verticalOffset < 0 && Math.abs(verticalOffset) > 100) {
+            hideFab();
+        }
+    }
+
+    private void showFab() {
+        if (mFab.getVisibility() == View.VISIBLE) {
+            isHidingFab = false;
+            mFab.animate().scaleX(1f).scaleY(1f)
+                    .setInterpolator(new OvershootInterpolator())
+                    .start();
+            mFab.setClickable(true);
+        }
+    }
+
+    private void hideFab() {
+        if (mFab.getVisibility() == View.VISIBLE && !isHidingFab) {
+            isHidingFab = true;
+            mFab.animate().scaleX(0).scaleY(0)
+                    .setInterpolator(new AccelerateInterpolator())
+                    .start();
+            mFab.setClickable(false);
+        }
     }
 
     private GSYVideoPlayer getCurPlay() {
@@ -331,6 +343,22 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
             return mVideoView.getFullWindowPlayer();
         }
         return mVideoView;
+    }
+
+    @Override
+    public void post(Runnable runnable) {
+
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        if (mOrientationUtils != null) {
+            mOrientationUtils.backToProtVideo();
+        }
+        if (Player.backFromWindowFull(this)) {
+            return;
+        }
+        super.onBackPressedSupport();
     }
 
     @Override
@@ -361,7 +389,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        //如果旋转了就全屏
+        // 如果旋转了就全屏
         if (isPlay && !isPause) {
             mVideoView.onConfigurationChanged(this, newConfig, mOrientationUtils);
         }
@@ -394,15 +422,10 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
         finish();
     }
 
-    @Override
-    public void post(Runnable runnable) {
-
-    }
 
     @Override
-    public void setTvAvStr(String avStr) {
-
-        mTvAv.setText("av" + avStr);
+    public void setTvAvStr(String av) {
+        mTvAv.setText("av" + av);
     }
 
     @Override
@@ -411,36 +434,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     }
 
     @Override
-    public void initViewPager(VideoDetail videoDetail) {
-        VideoDetailFragmentAdapter adapter = new VideoDetailFragmentAdapter(
-                getSupportFragmentManager(), this, videoDetail);
-        mViewPager.setAdapter(adapter);
-        mTabLayout.setViewPager(mViewPager);
-
-
-    }
-
-    @Override
     public void setTvVideoStartInfoStr(String tip) {
-
         mTvVideoStartInfo.setText(tip);
-    }
-
-    @Override
-    public void playVideo(PlayUrl url) {
-
-        if (url != null) {
-            Map<String, PlayUrl.DurlBean> durl = url.getDurl();
-            if (durl != null) {
-                PlayUrl.DurlBean durlBean = durl.get("0");
-                if (durlBean != null) {
-                    mVideoView.release();
-                    mGsyVideoOptionBuilder.setUrl(durlBean.getUrl())
-                            .setCacheWithPlay(cacheVideo)
-                            .build(mVideoView);
-                    mVideoView.postDelayed(() -> mVideoView.startPlayLogic(), 300);
-                }
-            }
-        }
     }
 }

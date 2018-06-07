@@ -1,5 +1,7 @@
 package com.example.wp.wp_mvp_fragmentation.app.data.entry.video;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 /**
  * 视频详情-简介
  */
-public class Summary {
+public class Summary implements Parcelable{
 
     /**
      * code : 0
@@ -20,6 +22,24 @@ public class Summary {
     private DataBean data;
     private String message;
     private int ttl;
+
+    protected Summary(Parcel in) {
+        code = in.readInt();
+        message = in.readString();
+        ttl = in.readInt();
+    }
+
+    public static final Creator<Summary> CREATOR = new Creator<Summary>() {
+        @Override
+        public Summary createFromParcel(Parcel in) {
+            return new Summary(in);
+        }
+
+        @Override
+        public Summary[] newArray(int size) {
+            return new Summary[size];
+        }
+    };
 
     public int getCode() {
         return code;
@@ -51,6 +71,19 @@ public class Summary {
 
     public void setTtl(int ttl) {
         this.ttl = ttl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeInt(code);
+        dest.writeString(message);
+        dest.writeInt(ttl);
     }
 
     public static class DataBean {
