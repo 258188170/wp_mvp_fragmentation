@@ -39,6 +39,7 @@ public class RecommendPresenter extends BasePresenter<RecommendContract.Model, R
     @Inject
     AppManager mAppManager;
     private RecommendMultiItemAdapter mAdapter;
+    private List<RecommendMultiItem> data = null;
 
     @Inject
     public RecommendPresenter(RecommendContract.Model model, RecommendContract.View rootView) {
@@ -80,7 +81,7 @@ public class RecommendPresenter extends BasePresenter<RecommendContract.Model, R
     }
 
     public int getIdx(boolean refresh) {
-        List<RecommendMultiItem> data = mAdapter.getData();
+        data = mAdapter.getData();
         if (data == null || data.size() == 0) {
             return 0;
         }
@@ -136,7 +137,6 @@ public class RecommendPresenter extends BasePresenter<RecommendContract.Model, R
         if (data != null) {
             RecommendMultiItem item = data.get(position);
             if (RecommendMultiItem.isVideoItem(item.getItemType())) {
-                Log.i(TAG, "onItemClick: "+item.getIndexDataBean().getParam());
                 ARouter.getInstance().build(Router.VIDEODETAIL_ACTIVITY).withString("aid", item.getIndexDataBean().getParam()).navigation();
             }
         }

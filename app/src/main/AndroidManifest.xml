@@ -42,7 +42,11 @@
 
         <activity android:name=".mvp.ui.activity.MainActivity" />
         <activity android:name=".mvp.ui.activity.TestActivity" />
-        <activity android:name=".mvp.ui.activity.VideoDetailActivity"></activity>
+        <activity
+            android:name=".mvp.ui.activity.VideoDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+            >
+        </activity>
     </application>
 
 </manifest>
