@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -164,27 +165,33 @@ public class LiveFragment extends MySupportFragment<LivePresenter> implements Li
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        // 退出app后必须关闭轮播的自动轮播功能。
         mBanner.setAutoPlayAble(false);
+        super.onDestroy();
+
     }
 
     @Override
     public void setHeaderView(LiveMultiItemAdapter adapter) {
-
+        adapter.addHeaderView(mHeaderView);
     }
 
     @Override
     public void setBanner(BGABanner.Adapter<ImageView, String> adapter, List<String> banners) {
-
+        mBanner.setAdapter(adapter);
+        mBanner.setData(banners, banners);
     }
 
     @Override
     public void setRecyclerAdapter(LiveMultiItemAdapter adapter) {
 
+        GridLayoutManager manager = new GridLayoutManager(_mActivity, 2);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
     public void setFooterView(LiveMultiItemAdapter adapter) {
-
+        adapter.addFooterView(mFooterView);
     }
 }

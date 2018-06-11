@@ -94,8 +94,16 @@ public class LivePresenter extends BasePresenter<LiveContract.Model, LiveContrac
 
     }
 
-    private void setAdapter(List<LiveMultiItem> liveMultiItems) {
-
+    private void setAdapter(List<LiveMultiItem> data) {
+        if (mAdapter == null) {
+            mAdapter = new LiveMultiItemAdapter(data);
+            mAdapter.setSpanSizeLookup((gridLayoutManager, position) -> data.get(position).getSpanSize());
+            mRootView.setHeaderView(mAdapter);
+            mRootView.setRecyclerAdapter(mAdapter);
+            mRootView.setFooterView(mAdapter);
+        } else {
+            mAdapter.setNewData(data);
+        }
 
     }
 
@@ -116,7 +124,6 @@ public class LivePresenter extends BasePresenter<LiveContract.Model, LiveContrac
     }
 
     private Context getContext() {
-        return mAppManager.getTopActivity() ==
-                null ? mApplication : mAppManager.getTopActivity();
+        return mAppManager.getTopActivity() == null ? mApplication : mAppManager.getTopActivity();
     }
 }
