@@ -1,12 +1,14 @@
 package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.video;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.wp.wp_mvp_fragmentation.R;
@@ -19,6 +21,8 @@ import com.jess.arms.di.component.AppComponent;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Created by wangpeng .
  * 评论
@@ -30,6 +34,10 @@ public class ReplyFragment extends MySupportFragment {
     private Reply mReply;
     private String mReplyCountStr;
     private View mRootView;
+    @BindView(R.id.rv_reply)
+    RecyclerView mRvReply;
+    @BindView(R.id.ll_bottom)
+    LinearLayout mLlBottom;
 
     public ReplyFragment(Reply reply, String replyCountStr) {
         this.mReply = reply;
@@ -86,6 +94,9 @@ public class ReplyFragment extends MySupportFragment {
         ((TextView) headerView.findViewById(R.id.tv_reply_count)).setText(mReplyCountStr);
 
         ReplyMultiItemAdapter adapter = new ReplyMultiItemAdapter(mData);
+        adapter.addHeaderView(headerView);
+        mRvReply.setLayoutManager(new LinearLayoutManager(_mActivity));
+        mRvReply.setAdapter(adapter);
     }
 
     @Override
