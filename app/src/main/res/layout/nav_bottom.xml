@@ -10,7 +10,7 @@
         android:id="@+id/rl_setting"
         android:layout_width="0dp"
         android:layout_height="@dimen/nav_bottom_rect_height"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
         android:layout_weight="1"
         android:gravity="center">
 
@@ -33,7 +33,7 @@
 
         android:layout_width="0dp"
         android:layout_height="@dimen/nav_bottom_rect_height"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
         android:layout_weight="1"
         android:gravity="center">
 
@@ -56,7 +56,7 @@
         android:id="@+id/rl_change_skin"
         android:layout_width="0dp"
         android:layout_height="@dimen/nav_bottom_rect_height"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
         android:layout_weight="1"
         android:gravity="center">
 
