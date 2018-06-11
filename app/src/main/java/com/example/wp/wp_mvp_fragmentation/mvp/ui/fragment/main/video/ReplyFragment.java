@@ -1,5 +1,6 @@
 package com.example.wp.wp_mvp_fragmentation.mvp.ui.fragment.main.video;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,12 +29,13 @@ import butterknife.BindView;
  * 评论
  */
 
+@SuppressLint("ValidFragment")
 public class ReplyFragment extends MySupportFragment {
 
     private List<ReplyMultiItem> mData = new ArrayList<>();
     private Reply mReply;
     private String mReplyCountStr;
-    private View mRootView;
+    private View mRootView = null;
     @BindView(R.id.rv_reply)
     RecyclerView mRvReply;
     @BindView(R.id.ll_bottom)
@@ -63,21 +65,25 @@ public class ReplyFragment extends MySupportFragment {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         if (mReply == null || mReply.getData() == null) {
             return;
         }
         Reply.DataBean dataBean = mReply.getData();
         initVideoReply(dataBean);
         initRecyclerView();
-
     }
 
     private void initVideoReply(Reply.DataBean bean) {
         final List<Reply.DataBean.RepliesBean> hots = bean.getHots();
         int size = hots.size();
-        if (hots !=null && size>0){
+        if (hots != null && size > 0) {
             for (int i = 0; i < size; i++) {
-                mData.add(new ReplyMultiItem(ReplyMultiItem.ITEM,hots.get(i)));
+                mData.add(new ReplyMultiItem(ReplyMultiItem.ITEM, hots.get(i)));
             }
             mData.add(new ReplyMultiItem(ReplyMultiItem.TITLE_HOTS));
         }
@@ -89,6 +95,9 @@ public class ReplyFragment extends MySupportFragment {
         }
     }
 
+    /**
+     * 加载recycleView
+     */
     private void initRecyclerView() {
         View headerView = View.inflate(_mActivity, R.layout.item_title_reply_video_detail, null);
         ((TextView) headerView.findViewById(R.id.tv_reply_count)).setText(mReplyCountStr);
