@@ -73,7 +73,7 @@ public class SummaryFragment extends MySupportFragment {
 
     private static final String SUMMARY = "arg_item";
     private Summary summary;
-    private View mRootView;
+    private View mRootView = null;
     private List<Summary.DataBean.TagBean> tags;
     private List<Summary.DataBean.TagBean> newTags;
     private MyTagAdapter adapter = null;
@@ -102,6 +102,12 @@ public class SummaryFragment extends MySupportFragment {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         summary = getArguments().getParcelable(SUMMARY);
         if (summary == null || summary.getData()==null)
             return;
@@ -109,7 +115,6 @@ public class SummaryFragment extends MySupportFragment {
         initVideoSummary(data);
         initUpperInfo(data);
         initOtherInfo(data);
-
     }
 
     @Override

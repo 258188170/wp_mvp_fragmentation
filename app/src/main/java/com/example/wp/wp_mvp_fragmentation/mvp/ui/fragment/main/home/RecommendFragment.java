@@ -25,10 +25,13 @@ import butterknife.BindView;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
+/**
+ * 推荐
+ */
 
 public class RecommendFragment extends MySupportFragment<RecommendPresenter> implements RecommendContract.View {
 
-    private View mRootView;
+    private View mRootView = null;
 
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
@@ -62,6 +65,7 @@ public class RecommendFragment extends MySupportFragment<RecommendPresenter> imp
     public void initData(@Nullable Bundle savedInstanceState) {
         initRefreshLayout();
     }
+
 
     private void initRefreshLayout() {
         mRefreshLayout.setColorSchemeColors(ArmsUtils.getColor(_mActivity, R.color.colorPrimary));
@@ -109,7 +113,7 @@ public class RecommendFragment extends MySupportFragment<RecommendPresenter> imp
 
     @Override
     public void setRecycleAdapter(RecommendMultiItemAdapter adapter) {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity,2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(_mActivity, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(adapter);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
