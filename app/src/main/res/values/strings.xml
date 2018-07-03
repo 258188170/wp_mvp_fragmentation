@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mine</string>
+    <string name="app_name">MVP+Fragmention</string>
 
     <!--MainActivity:侧边栏-->
     <string name="click_avtor_login">点击头像登录</string>

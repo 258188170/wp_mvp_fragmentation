@@ -32,6 +32,7 @@ public class LiveMultiItemAdapter extends BaseMultiItemQuickAdapter<LiveMultiIte
         if (mAppComponent == null) {
             mAppComponent = ArmsUtils.obtainAppComponentFromContext(mContext);
         }
+
         switch (item.getItemType()) {
             case LiveMultiItem.TITLE:
                 mAppComponent

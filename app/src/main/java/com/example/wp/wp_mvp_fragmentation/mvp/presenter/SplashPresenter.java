@@ -17,6 +17,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 @ActivityScope
@@ -45,17 +46,21 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
     }
 
     public void toStart() {
-        Observable.intervalRange(0, 5, 0, 1, TimeUnit.SECONDS,Schedulers.io())
+        Observable.intervalRange(0, 5, 0, 1, TimeUnit.SECONDS, Schedulers.io())
                 .map(aLong -> 4L - aLong)
                 .doOnSubscribe(aLong -> mRootView.isClickable(false))
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(aLong -> {
-                    //倒计时时间
-                    mRootView.showTimer(aLong);
-                    if (aLong == 0L) mRootView.killMyself();
+                .subscribe(new ErrorHandleSubscriber<Long>(mErrorHandler) {
+                    @Override
+                    public void onNext(Long aLong) {
+                        mRootView.showTimer(aLong);
+                        if (aLong == 0L) mRootView.killMyself();
+                    }
                 });
 
 
     }
+
+
 }

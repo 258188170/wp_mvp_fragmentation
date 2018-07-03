@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wp.wp_mvp_fragmentation">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -9,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <application
         android:name="com.jess.arms.base.BaseApplication"
         android:allowBackup="true"
@@ -40,7 +38,9 @@
             android:name="com.example.wp.wp_mvp_fragmentation.app.GlobalConfiguration"
             android:value="ConfigModule" />
 
-        <activity android:name=".mvp.ui.activity.MainActivity" />
+        <activity
+            android:name=".mvp.ui.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".mvp.ui.activity.TestActivity" />
         <activity
             android:name=".mvp.ui.activity.VideoDetailActivity"

@@ -56,11 +56,8 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 @Route(path = Router.VIDEODETAIL_ACTIVITY)
 public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter> implements VideoDetailContract.View {
-
     @Autowired(name = "aid")
     public String aid;
-
-
     // toolbar、appbarlayout
     private boolean isPlayImmediately = false;
     // Fab、锚点
@@ -133,7 +130,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     private void initStatusBar() {
         //设置StatusBar透明
         SystemBarHelper.immersiveStatusBar(this);
-        SystemBarHelper.setHeightAndPadding(this, mToolbar);
+        SystemBarHelper.setHeightAndPadding(getApplicationContext(), mToolbar);
     }
 
     private void initToolbar() {

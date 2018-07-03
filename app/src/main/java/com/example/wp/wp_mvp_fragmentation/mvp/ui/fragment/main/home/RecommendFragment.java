@@ -133,4 +133,10 @@ public class RecommendFragment extends MySupportFragment<RecommendPresenter> imp
 
         mRecyclerView.scrollToPosition(position);
     }
+
+    @Override
+    public void onDestroy() {
+        mRootView = null;
+        super.onDestroy();
+    }
 }

@@ -52,10 +52,11 @@ public class SplashActivity extends MySupportActivity<SplashPresenter> implement
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        mPresenter.toStart();
+
         //去掉Activity上面的状态栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        mPresenter.toStart();
     }
 
     @Override
@@ -101,5 +102,10 @@ public class SplashActivity extends MySupportActivity<SplashPresenter> implement
     @Override
     public void post(Runnable runnable) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

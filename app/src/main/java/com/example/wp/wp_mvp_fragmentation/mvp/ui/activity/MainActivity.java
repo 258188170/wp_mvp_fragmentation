@@ -90,8 +90,8 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
 
     private void initStatusBar() {
         SystemBarHelper.tintStatusBarForDrawer(this, mDrawer, ArmsUtils.getColor(this, R.color.colorPrimary));
-        SystemBarHelper.setPadding(this, mNav.getHeaderView(0));
-        SystemBarHelper.setPadding(this, mLlRoot);
+        SystemBarHelper.setPadding(getApplicationContext(), mNav.getHeaderView(0));
+        SystemBarHelper.setPadding(getApplicationContext(), mLlRoot);
     }
 
     private void initFragmentation() {
@@ -205,7 +205,7 @@ public class MainActivity extends MySupportActivity<MainPresenter> implements Ma
                 // 2秒内两次点击返回键退出应用
                 long nowTime = System.currentTimeMillis();
                 if (nowTime - mPreTime > 2000) {
-                    ArmsUtils.makeText(this, ArmsUtils.getString(this, R.string.double_click_to_exit));
+                    ArmsUtils.makeText(getApplicationContext(), ArmsUtils.getString(this, R.string.double_click_to_exit));
                     mPreTime = nowTime;
                 } else {
                     ArmsUtils.exitApp();
