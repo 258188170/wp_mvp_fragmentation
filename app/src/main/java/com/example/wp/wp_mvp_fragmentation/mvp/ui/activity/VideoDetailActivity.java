@@ -130,7 +130,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
     private void initStatusBar() {
         //设置StatusBar透明
         SystemBarHelper.immersiveStatusBar(this);
-        SystemBarHelper.setHeightAndPadding(getApplicationContext(), mToolbar);
+        SystemBarHelper.setHeightAndPadding(this, mToolbar);
     }
 
     private void initToolbar() {
@@ -374,9 +374,7 @@ public class VideoDetailActivity extends MySupportActivity<VideoDetailPresenter>
 
     @Override
     protected void onDestroy() {
-        if (isPlay) {
-            getCurPlay().release();
-        }
+        getCurPlay().release();
         if (mOrientationUtils != null) {
             mOrientationUtils.releaseListener();
         }
