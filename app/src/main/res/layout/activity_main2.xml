@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.testviews.Main2Activity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="haha"
+        android:layout_height="wrap_content" />
+<com.example.wp.wp_mvp_fragmentation.mvp.testviews.PieView
+    android:id="@+id/pie"
+    android:layout_width="200dp"
+    android:layout_gravity="center"
+    android:layout_height="200dp" />
+</LinearLayout>

@@ -65,6 +65,7 @@ dependencies {
 
     // tool
     implementation rootProject.ext.dependencies["arouter"]
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
@@ -93,7 +94,6 @@ dependencies {
     implementation(rootProject.ext.dependencies["gsyVideoPlayer-x86"])
     //更多配置版so，增加了concat,rtsp,mpeg，crypto
     //compile(rootProject.ext.dependencies["gsyVideoPlayer-ex_so"])
-
 
     // test
     testImplementation rootProject.ext.dependencies["junit"]

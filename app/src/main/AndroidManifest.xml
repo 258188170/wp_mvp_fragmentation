@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.wp.wp_mvp_fragmentation">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -8,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name="com.jess.arms.base.BaseApplication"
         android:allowBackup="true"
@@ -17,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mvp.ui.activity.SplashActivity"
+            android:name=".mvp.testviews.Main2Activity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,14 +42,15 @@
 
         <activity
             android:name=".mvp.ui.activity.MainActivity"
-            android:launchMode="singleTask"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask" />
         <activity android:name=".mvp.ui.activity.TestActivity" />
         <activity
             android:name=".mvp.ui.activity.VideoDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             >
         </activity>
+        <activity android:name=".mvp.ui.activity.SplashActivity"></activity>
     </application>
 
 </manifest>
