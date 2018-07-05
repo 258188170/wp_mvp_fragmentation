@@ -1,7 +1,6 @@
 package com.example.wp.wp_mvp_fragmentation.mvp.presenter;
 
 import android.app.Application;
-import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -81,6 +80,9 @@ public class RecommendPresenter extends BasePresenter<RecommendContract.Model, R
     }
 
     public int getIdx(boolean refresh) {
+        if (mAdapter == null) {
+            return 0;
+        }
         data = mAdapter.getData();
         if (data == null || data.size() == 0) {
             return 0;
