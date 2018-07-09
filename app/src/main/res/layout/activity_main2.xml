@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".mvp.testviews.Main2Activity">
-    <com.example.wp.wp_mvp_fragmentation.mvp.testviews.MyPath
+    <com.example.wp.wp_mvp_fragmentation.mvp.testviews.radarview.RadarView
+        android:id="@+id/radar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mvp.ui.activity.SplashActivity"
+            android:name=".mvp.testviews.Main2Activity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,7 +50,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize">
             >
         </activity>
-        <activity android:name=".mvp.testviews.Main2Activity"></activity>
+        <activity android:name=".mvp.ui.activity.SplashActivity"></activity>
     </application>
 
 </manifest>
