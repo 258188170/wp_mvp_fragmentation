@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.example.wp.wp_mvp_fragmentation.R;
@@ -17,7 +18,7 @@ public class Main2Activity extends AppCompatActivity {
     CheckView checkview;
     private ProgressBar mProgressBar;
     private Button mChangeBtn;
-
+    private FrameLayout frameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +43,13 @@ public class Main2Activity extends AppCompatActivity {
                 null);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mChangeBtn = (Button) findViewById(R.id.change_btn);
-        mChangeBtn.setOnClickListener(new View.OnClickListener() {
+        frameLayout = findViewById(R.id.fl);
+        frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mProgressBar.setVisibility(View.VISIBLE);
                 // 收缩按钮
-                CircularAnim.hide(mChangeBtn).go();
+                CircularAnim.hide(frameLayout).go();
             }
         });
 
@@ -56,7 +58,7 @@ public class Main2Activity extends AppCompatActivity {
             public void onClick(View view) {
                 mProgressBar.setVisibility(View.GONE);
                 // 伸展按钮
-                CircularAnim.show(mChangeBtn).go();
+                CircularAnim.show(frameLayout).go();
             }
         });
     }
