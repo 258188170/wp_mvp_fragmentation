@@ -23,45 +23,6 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
-        CircularAnim.init(700, 618, R.color.colorPrimary);
-        // optional. set the default duration OnAnimatorDeployListener.
-        CircularAnim.initDefaultDeployAnimators(
-                new CircularAnim.OnAnimatorDeployListener() {
-                    @Override
-                    public void deployAnimator(Animator animator) {
-                        animator.setInterpolator(new AccelerateInterpolator());
-                    }
-                },
-                new CircularAnim.OnAnimatorDeployListener() {
-                    @Override
-                    public void deployAnimator(Animator animator) {
-                        animator.setInterpolator(new DecelerateInterpolator());
-                    }
-                },
-                null,
-                null);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mChangeBtn = (Button) findViewById(R.id.change_btn);
-        frameLayout = findViewById(R.id.fl);
-        frameLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mProgressBar.setVisibility(View.VISIBLE);
-                // 收缩按钮
-                CircularAnim.hide(frameLayout).go();
-            }
-        });
-
-        mProgressBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mProgressBar.setVisibility(View.GONE);
-                // 伸展按钮
-                CircularAnim.show(frameLayout).go();
-            }
-        });
     }
-
 
 }
